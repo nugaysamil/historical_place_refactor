@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "205275922876",
+    "project_id": "newhistorical-b4f75",
+    "storage_bucket": "newhistorical-b4f75.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:205275922876:android:1837fae086ece207172bb9",
+        "android_client_info": {
+          "package_name": "com.example.mapsuygulama"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "205275922876-uhvglu43lehm3ifjvetqul3jjk0t18rs.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBrhaQ1kI-LR8nDunXL3mJBL3yh9tUQNIE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "205275922876-uhvglu43lehm3ifjvetqul3jjk0t18rs.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "205275922876-8qmrctl7okavfhpham2i7cp80110mh11.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.mapsuygulama"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

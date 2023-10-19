@@ -1,0 +1,74 @@
+name: mapsuygulama
+description: A new Flutter project.
+
+publish_to: "none"
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=3.0.0 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.2
+  google_maps_flutter: ^2.2.2
+  url_launcher: ^6.1.7
+  flutter_riverpod: ^2.3.6
+  hooks_riverpod: ^2.3.6
+  equatable: ^2.0.5
+  fluttertoast: ^8.2.2
+  image_picker: ^1.0.0
+  ionicons: ^0.2.2
+  google_maps_webservice: ^0.0.20-nullsafety.5
+  google_fonts: ^4.0.4
+  dio: ^5.2.1+1
+  geolocator: ^9.0.2
+  lottie: ^2.5.0
+  easy_localization: ^3.0.2
+  http: ^0.13.6
+
+dependency_overrides:
+  test_api:
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  firebase_core: ^2.14.0
+  firebase_auth: ^4.6.3
+  custom_info_window: ^1.0.1
+  link_text: ^0.2.0
+  get: ^4.6.5
+  location: ^4.4.0
+  rive: ^0.11.3
+  google_sign_in: ^6.1.4
+  firebase_storage: ^11.2.4
+  cloud_firestore: ^4.8.2
+  flutter_google_places: ^0.3.0
+
+flutter:
+  fonts:
+    - family: Montserrat
+      fonts:
+        - asset: assets/fonts/Montserrat-Regular.otf
+          weight: 400
+        - asset: assets/fonts/Montserrat-SemiBold.otf
+          weight: 600
+        - asset: assets/fonts/Montserrat-Bold.otf
+          weight: 700
+
+  uses-material-design: true
+
+  assets:
+    - assets/
+    - assets/RiveAssets/
+    - assets/images/facebook.png
+    - assets/images/google.png
+    - assets/maptheme/aubergine_theme.json
+    - assets/maptheme/dark_theme.json
+    - assets/images/foursquare.png
+    - assets/images/tripadvisor.jpg
+    - assets/images/histo.jpeg
+    - assets/translations/
