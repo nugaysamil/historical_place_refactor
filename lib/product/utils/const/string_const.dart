@@ -1,0 +1,16 @@
+const placeUrl = 'https://ancientcitiesturkey.com/';
+const kGoogleApiKey = "AIzaSyBtFbKA2D-BEEy3UAWg66kxXr6c5rIvLQA";
+const riveAssets = 'assets/RiveAssets/menuitems.riv';
+const artBoardSettings = 'SETTINGS';
+const welcomeToHistorical = 'Welcome To Historical Place';
+const letsGo = 'Lets Go';
+const mapThemeAubergine = 'assets/maptheme/aubergine_theme.json';
+const starIcon = "assets/star-icon.png";
+const forgotPasswordText = 'forgot_password';
+const welcomeBack = 'welcome_back';
+const email = 'Email';
+const password = 'password';
+const msgLogInSucces = 'Log In successful.';
+const login = 'Log In';
+const signUp = 'sign_up';
+const dontAccount = 'dont_account';

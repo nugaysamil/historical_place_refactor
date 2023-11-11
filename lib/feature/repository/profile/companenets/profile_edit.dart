@@ -1,11 +1,11 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:mapsuygulama/feature/database/database_service.dart';
-import 'package:mapsuygulama/feature/database/user_data_service.dart';
+import 'package:mapsuygulama/product/database/database_service.dart';
+import 'package:mapsuygulama/product/database/user_data_service.dart';
 import 'package:mapsuygulama/feature/repository/profile/companenets/profile_edit_input_text.dart';
-import 'package:mapsuygulama/google.dart';
-import 'package:mapsuygulama/marker_list.dart';
+import 'package:mapsuygulama/feature/google/google.dart';
+import 'package:mapsuygulama/feature/google/marker_list.dart';
 import 'package:mapsuygulama/product/utils/image_util.dart';
 
 

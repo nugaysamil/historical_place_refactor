@@ -2,7 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:firebase_core/firebase_core.dart';
-import '../utils/firebase_options.dart';
+import '../helper/firebase_options.dart';
 
 @immutable
 class ApplicationStart {

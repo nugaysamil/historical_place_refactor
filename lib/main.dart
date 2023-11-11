@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:mapsuygulama/product/slack/onbording_screen.dart';
+import 'package:mapsuygulama/feature/slack/screen/onbording_screen.dart';
 import 'product/initialize/app_theme.dart';
 import 'product/initialize/application_start.dart';
 
@@ -14,6 +14,7 @@ Future<void> main() async {
         supportedLocales: [Locale('en', 'US'), Locale('tr', 'TR')],
         fallbackLocale: Locale('tr', 'TR'),
         path: 'assets/translations',
+        
         child: MyApp(),
       ),
     ),

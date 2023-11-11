@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:mapsuygulama/google.dart';
-import 'package:mapsuygulama/marker_list.dart';
+import 'package:mapsuygulama/feature/google/google.dart';
+import 'package:mapsuygulama/feature/google/marker_list.dart';
 
 
 class NotificationWidget extends StatelessWidget {
