@@ -9,7 +9,7 @@ import 'package:mapsuygulama/feature/login/components/sign_up_components.dart';
 import 'package:mapsuygulama/feature/login/widgets/text_field/widget_text_field.dart';
 import 'package:mapsuygulama/feature/repository/auth_google_service.dart';
 import 'package:mapsuygulama/feature/repository/email_validator.dart';
-import 'package:mapsuygulama/feature/repository/profile/companenets/profile_edit.dart';
+import 'package:mapsuygulama/feature/profile/companenets/profile_edit.dart';
 import 'package:mapsuygulama/feature/login/controller/login_controller.dart';
 import 'package:mapsuygulama/feature/login/controller/login_state.dart';
 import 'package:mapsuygulama/feature/google/google.dart';

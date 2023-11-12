@@ -1,11 +1,12 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:easy_logger/easy_logger.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:firebase_core/firebase_core.dart';
 import '../helper/firebase_options.dart';
 
 @immutable
-class ApplicationStart {
+final class ApplicationStart {
   const ApplicationStart._();
   static Future<void> init() async {
     WidgetsFlutterBinding.ensureInitialized();
@@ -14,9 +15,9 @@ class ApplicationStart {
       options: DefaultFirebaseOptions.currentPlatform,
     );
 
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      statusBarColor: Colors.transparent,
-    ));
+    EasyLocalization.logger.enableLevels = [LevelMessages.error];
+
+    await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 
     await EasyLocalization.ensureInitialized();
   }

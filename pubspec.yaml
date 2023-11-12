@@ -28,6 +28,7 @@ dependencies:
   lottie: ^2.5.0
   easy_localization: ^3.0.2
   http: ^0.13.6
+  easy_logger: ^0.0.2
 
 dependency_overrides:
   test_api:

@@ -2,13 +2,10 @@
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:mapsuygulama/feature/login/components/login_screen_components.dart';
 import 'package:mapsuygulama/feature/login/widgets/text_field/widget_text_field.dart';
-import 'package:mapsuygulama/feature/repository/profile/companenets/profile_edit.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:mapsuygulama/feature/login/controller/login_controller.dart';
 import 'package:mapsuygulama/feature/login/controller/login_state.dart';
 import 'package:mapsuygulama/product/utils/const/color_const.dart';
@@ -26,10 +23,7 @@ class LoginPage extends StatefulHookConsumerWidget {
 }
 
 class _LoginContentState extends ConsumerState<LoginPage>
-    with TickerProviderStateMixin {
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
-
+    with TickerProviderStateMixin, _CustomLoginButtonMixin {
   void hideKeyboard() {
     final currentFocus = FocusScope.of(context);
     if (!currentFocus.hasPrimaryFocus) {
@@ -91,53 +85,7 @@ class _LoginContentState extends ConsumerState<LoginPage>
                     padding: const EdgeInsets.symmetric(
                         horizontal: 135, vertical: 16),
                     child: ElevatedButton(
-                      onPressed: () async {
-                        if (_emailController.text.isEmpty ||
-                            _passwordController.text.isEmpty) {
-                          ref.read(loginControllerProvider.notifier).state =
-                              LoginStateError(
-                                  'Please enter email and password.');
-                        } else {
-                          try {
-                            final email = _emailController.text;
-                            final password = _passwordController.text;
-
-                            final methods = await FirebaseAuth.instance
-                                .fetchSignInMethodsForEmail(email);
-                            if (methods.isNotEmpty) {
-                              await ref
-                                  .read(loginControllerProvider.notifier)
-                                  .userLogin(email, password);
-
-                              Fluttertoast.showToast(
-                                msg: msgLogInSucces,
-                                toastLength: Toast.LENGTH_SHORT,
-                              );
-
-                              Future.delayed(
-                                Duration(milliseconds: 700),
-                                () {
-                                  _emailController.clear();
-                                  _passwordController.clear();
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => ProfileEdit(),
-                                    ),
-                                  );
-                                },
-                              );
-                            } else {
-                              ref.read(loginControllerProvider.notifier).state =
-                                  LoginStateError(
-                                      'Böyle bir email bulunamadı.');
-                            }
-                          } catch (error) {
-                            ref.read(loginControllerProvider.notifier).state =
-                                LoginStateError('Invalid email or password.');
-                          }
-                        }
-                      },
+                      onPressed: () async {},
                       style: ElevatedButton.styleFrom(
                         padding: const EdgeInsets.symmetric(vertical: 14),
                         shape: const StadiumBorder(),

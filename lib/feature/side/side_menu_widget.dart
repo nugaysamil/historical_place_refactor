@@ -1,10 +1,10 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 
 import 'package:flutter/material.dart';
-import 'package:mapsuygulama/feature/repository/profile/companenets/favorite_widget.dart';
-import 'package:mapsuygulama/feature/repository/profile/profile_update/notification_widget.dart';
-import 'package:mapsuygulama/feature/repository/profile/profile_update/profile_update_widget.dart';
-import 'package:mapsuygulama/feature/repository/profile/profile_update/settings_widget.dart';
+import 'package:mapsuygulama/feature/profile/companenets/favorite_widget.dart';
+import 'package:mapsuygulama/feature/profile/profile_update/notification_widget.dart';
+import 'package:mapsuygulama/feature/profile/profile_update/profile_update_widget.dart';
+import 'package:mapsuygulama/feature/profile/profile_update/settings_widget.dart';
 import 'package:mapsuygulama/feature/slack/screen/onbording_screen.dart';
 
 import 'package:rive/rive.dart';
