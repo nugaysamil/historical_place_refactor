@@ -15,7 +15,9 @@ import '../widgets/text/widget_bottom_text.dart';
 import '../widgets/text_field/widget_password_field.dart';
 import '../widgets/text/widget_top_text.dart';
 
-class LoginPage extends StatefulHookConsumerWidget {
+part "../login_screen/login_screen_mixin.dart";
+
+final class LoginPage extends StatefulHookConsumerWidget {
   const LoginPage({super.key});
 
   @override
@@ -23,7 +25,7 @@ class LoginPage extends StatefulHookConsumerWidget {
 }
 
 class _LoginContentState extends ConsumerState<LoginPage>
-    with TickerProviderStateMixin, _CustomLoginButtonMixin {
+    with TickerProviderStateMixin {
   void hideKeyboard() {
     final currentFocus = FocusScope.of(context);
     if (!currentFocus.hasPrimaryFocus) {

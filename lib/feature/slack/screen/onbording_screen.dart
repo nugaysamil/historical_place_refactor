@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mapsuygulama/product/controller/localizations_checker.dart';
 import 'package:mapsuygulama/feature/login/components/login_screen_components.dart';
-import 'package:mapsuygulama/feature/login/components/login_screen_page.dart';
+import 'package:mapsuygulama/feature/login/mixin/login_screen_page.dart';
 import 'package:mapsuygulama/feature/slack/component/onboard_content.dart';
 import 'package:mapsuygulama/product/models/onboard_model.dart';
 
