@@ -1,13 +1,14 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:mapsuygulama/feature/profile/companenets/profile_edit_about.dart';
+import 'package:mapsuygulama/feature/profile/companenets/profile_edit_text.dart';
 import 'package:mapsuygulama/product/database/database_service.dart';
 import 'package:mapsuygulama/product/database/user_data_service.dart';
 import 'package:mapsuygulama/feature/profile/companenets/profile_edit_input_text.dart';
 import 'package:mapsuygulama/feature/google/google.dart';
-import 'package:mapsuygulama/feature/google/marker_list.dart';
+import 'package:mapsuygulama/product/utils/const/string_const.dart';
 import 'package:mapsuygulama/product/utils/image_util.dart';
-
 
 class ProfileEdit extends StatefulWidget {
   ProfileEdit({super.key});
@@ -26,16 +27,8 @@ class _ProfileEditState extends State<ProfileEdit> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey.shade200,
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        backgroundColor: Colors.transparent,
-        elevation: 1,
-        title: Text(
-          'Profile',
-          style: TextStyle(color: Colors.black),
-        ),
-      ),
+      backgroundColor: Colors.white,
+      appBar: _appBar(),
       body: Container(
         padding: EdgeInsets.only(left: 15, top: 40, right: 15),
         child: GestureDetector(
@@ -65,7 +58,7 @@ class _ProfileEditState extends State<ProfileEdit> {
                           image: imageUrl != null
                               ? NetworkImage(imageUrl!)
                               : NetworkImage(
-                                  'https://eitrawmaterials.eu/wp-content/uploads/2016/09/person-icon.png',
+                                  iconUrl,
                                 ),
                         ),
                       ),
@@ -122,30 +115,44 @@ class _ProfileEditState extends State<ProfileEdit> {
                   ],
                 ),
               ),
-              SizedBox(height: 30),
-              TextInputField(
-                textController: _nameController,
-                labelText: 'name_surname'.tr(),
-              ),
-              TextInputField(
-                textController: _locationController,
-                labelText: 'location'.tr(),
-              ),
-              TextInputField(
-                textController: _ageController,
-                labelText: 'age'.tr(),
-              ),
-              SizedBox(height: 30),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  ElevatedButton(
-                    onPressed: () {
-                      if (_nameController.text.isEmpty ||
-                          _locationController.text.isEmpty ||
-                          _ageController.text.isEmpty) {
+                  AboutMeWidget(),
+                  SpecialTexts(text: 'name_surname'.tr()),
+                  TextInputField(
+                    textController: _nameController,
+                  ),
+                  SpecialTexts(text: 'location'.tr()),
+                  TextInputField(
+                    textController: _locationController,
+                  ),
+                  SpecialTexts(text: 'age'.tr()),
+                  TextInputField(
+                    textController: _ageController,
+                  ),
+                ],
+              ),
+              SizedBox(height: 40),
+              Center(
+                child: ElevatedButton(
+                  onPressed: () {
+                    if (_nameController.text.isEmpty ||
+                        _locationController.text.isEmpty ||
+                        _ageController.text.isEmpty) {
+                      Fluttertoast.showToast(
+                        msg: 'Lütfen tüm alanları doldurunuz.',
+                        toastLength: Toast.LENGTH_SHORT,
+                        gravity: ToastGravity.CENTER,
+                        timeInSecForIosWeb: 3,
+                        backgroundColor: Colors.black,
+                        textColor: Colors.white,
+                      );
+                    } else {
+                      int? age = int.tryParse(_ageController.text);
+                      if (age == null) {
                         Fluttertoast.showToast(
-                          msg: 'Lütfen tüm alanları doldurunuz.',
+                          msg: 'Yaş alanına geçerli bir sayı giriniz.',
                           toastLength: Toast.LENGTH_SHORT,
                           gravity: ToastGravity.CENTER,
                           timeInSecForIosWeb: 3,
@@ -153,75 +160,81 @@ class _ProfileEditState extends State<ProfileEdit> {
                           textColor: Colors.white,
                         );
                       } else {
-                        int? age = int.tryParse(_ageController.text);
-                        if (age == null) {
-                          Fluttertoast.showToast(
-                            msg: 'Yaş alanına geçerli bir sayı giriniz.',
-                            toastLength: Toast.LENGTH_SHORT,
-                            gravity: ToastGravity.CENTER,
-                            timeInSecForIosWeb: 3,
-                            backgroundColor: Colors.black,
-                            textColor: Colors.white,
-                          );
-                        } else {
-                          FirebaseService.saveUserData(
-                                  _nameController.text,
-                                  _locationController.text,
-                                  age.toString(),
-                                  imageUrl.toString())
-                              .then(
-                            (value) {
-                              Fluttertoast.showToast(
-                                msg: 'Verileriniz doğru kaydedilmiştir.',
-                                toastLength: Toast.LENGTH_SHORT,
-                                gravity: ToastGravity.CENTER,
-                                timeInSecForIosWeb: 3,
-                                backgroundColor: Colors.black,
-                                textColor: Colors.white,
-                              );
-                              Future.delayed(
-                                Duration(seconds: 2),
-                                () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) =>
-                                          CustomMarkerInfoWindow(
-                                        markers: markers,
-                                        customInfoWindowController:
-                                            customInfoWindowController,
-                                      ),
+                        FirebaseService.saveUserData(
+                                _nameController.text,
+                                _locationController.text,
+                                age.toString(),
+                                imageUrl.toString())
+                            .then(
+                          (value) {
+                            Fluttertoast.showToast(
+                              msg: 'Verileriniz doğru kaydedilmiştir.',
+                              toastLength: Toast.LENGTH_SHORT,
+                              gravity: ToastGravity.CENTER,
+                              timeInSecForIosWeb: 3,
+                              backgroundColor: Colors.black,
+                              textColor: Colors.white,
+                            );
+                            Future.delayed(
+                              Duration(seconds: 2),
+                              () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        CustomMarkerInfoWindow(
+                                      markers: markers,
+                                      customInfoWindowController:
+                                          customInfoWindowController,
                                     ),
-                                  );
-                                },
-                              );
-                            },
-                          );
-                        }
+                                  ),
+                                );
+                              },
+                            );
+                          },
+                        );
                       }
-                    },
-                    child: Text(
-                      'kaydet'.tr().toUpperCase(),
-                      style: TextStyle(
-                        fontSize: 15,
-                        letterSpacing: 2,
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.black87,
-                      padding: EdgeInsets.symmetric(horizontal: 50),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20),
-                      ),
+                    }
+                  },
+                  child: Text(
+                    'kaydet'.tr().toUpperCase(),
+                    style: TextStyle(
+                      fontSize: 15,
+                      letterSpacing: 2,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
-                ],
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Color.fromARGB(255, 32, 144, 236),
+                    padding: EdgeInsets.symmetric(horizontal: 140),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    minimumSize: Size(0, 50),
+                  ),
+                ),
               ),
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  AppBar _appBar() {
+    return AppBar(
+      automaticallyImplyLeading: false,
+      backgroundColor: Colors.transparent,
+      elevation: 0,
+      leading: IconButton(
+        icon: Icon(Icons.arrow_back_ios),
+        color: Colors.black38,
+        onPressed: () {},
+      ),
+      title: Text(
+        profile,
+        style: TextStyle(color: Colors.black),
       ),
     );
   }

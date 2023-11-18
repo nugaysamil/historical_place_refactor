@@ -8,7 +8,6 @@ import 'product/initialize/application_start.dart';
 
 Future<void> main() async {
   await ApplicationStart.init();
-
   runApp(
     ProviderScope(
         child: ProductLocalization(
@@ -28,6 +27,6 @@ class MyApp extends StatelessWidget {
         locale: context.locale,
         debugShowCheckedModeBanner: false,
         theme: AppTheme.getAppTheme(context),
-        home: OnBordingScreen());
+        home: OnBoardingScreen());
   }
 }

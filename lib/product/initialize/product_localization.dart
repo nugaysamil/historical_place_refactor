@@ -13,7 +13,6 @@ final class ProductLocalization extends EasyLocalization {
   }) : super(
           supportedLocales: _supportedLocales,
           path: _translationPath,
-          useOnlyLangCode: true,
         );
 
   static final List<Locale> _supportedLocales = [

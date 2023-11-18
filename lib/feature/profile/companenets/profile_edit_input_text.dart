@@ -3,11 +3,10 @@ import 'package:flutter/material.dart';
 
 class TextInputField extends StatelessWidget {
   final TextEditingController textController;
-  final String labelText;
+
   const TextInputField({
     Key? key,
     required this.textController,
-    required this.labelText,
   }) : super(key: key);
 
   @override
@@ -15,32 +14,43 @@ class TextInputField extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 8),
       child: SizedBox(
-        height: 70,
+        height: 50,
         child: Material(
-          elevation: 0,
-          shadowColor: Colors.black87,
-          color: Colors.transparent,
-          borderRadius: BorderRadius.circular(20),
-          child: TextField(
-            controller: textController,
-            textAlignVertical: TextAlignVertical.bottom,
-            style: TextStyle(color: Colors.black),
-            decoration: InputDecoration(
-              labelText: labelText,
-              labelStyle: TextStyle(color: Colors.black),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(20),
-                borderSide: BorderSide.none,
+            elevation: 0,
+            shadowColor: Colors.black87,
+            color: Colors.transparent,
+            borderRadius: BorderRadius.circular(20),
+            child: TextField(
+              controller: textController,
+              textAlignVertical: TextAlignVertical.center,
+              style: TextStyle(color: Colors.black),
+              decoration: InputDecoration(
+                labelStyle: TextStyle(color: Colors.black),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(7),
+                  borderSide: BorderSide(
+                    color: Colors.black,
+                    width: 1.0,
+                  ),
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(7),
+                  borderSide: BorderSide(
+                    color: Colors.black,
+                    width: 1.0,
+                  ),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  borderSide: BorderSide(
+                    color: Color.fromARGB(255, 132, 115, 239),
+                    width: 2.0,
+                  ),
+                ),
+                filled: true,
+                fillColor: Color.fromARGB(255, 228, 231, 245),
               ),
-              filled: true,
-              fillColor: Colors.white,
-              focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(30),
-                borderSide: BorderSide(color: Colors.black, width: 2.0),
-              ),
-            ),
-          ),
-        ),
+            )),
       ),
     );
   }

@@ -1,3 +1,4 @@
+// Base String
 const placeUrl = 'https://ancientcitiesturkey.com/';
 const kGoogleApiKey = "AIzaSyBtFbKA2D-BEEy3UAWg66kxXr6c5rIvLQA";
 const riveAssets = 'assets/RiveAssets/menuitems.riv';
@@ -14,3 +15,8 @@ const msgLogInSucces = 'Log In successful.';
 const login = 'Log In';
 const signUp = 'sign_up';
 const dontAccount = 'dont_account';
+const firebaseName = 'newhistorical-b4f75';
+const iconUrl =
+    'https://media.istockphoto.com/id/1332100919/tr/vektör/man-icon-black-icon-person-symbol.jpg?s=612x612&w=0&k=20&c=lVmBCgzh7mw_UbIHKvFtpi7W8J21mEdrNQsfOgn0PxA=';
+const aboutMeText = 'About Me';
+const profile = 'Profile';

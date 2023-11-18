@@ -9,6 +9,8 @@
         <key>UISceneConfigurations</key>
         <dict/>
     </dict>
+	<key>FLTEnableImpeller</key>
+    <false />
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>

@@ -1,17 +1,24 @@
+/* import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'package:mapsuygulama/feature/login/controller/login_controller.dart';
 import 'package:mapsuygulama/feature/login/controller/login_state.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+import 'package:mapsuygulama/feature/login/mixin/login_screen_page.dart';
 import 'package:mapsuygulama/feature/profile/companenets/profile_edit.dart';
 import 'package:mapsuygulama/product/utils/const/string_const.dart';
+import 'package:json_serializable/json_serializable.dart';
+import 'package:built_value/built_value.dart';
 
-part of "../mixin/login_screen_page.dart";
+
+part of 'login_screen_page.dart';
 
 mixin _CustomLoginButtonMixin on ConsumerState<LoginPage> {
+
+
+  
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
@@ -62,3 +69,4 @@ mixin _CustomLoginButtonMixin on ConsumerState<LoginPage> {
     }
   }
 }
+ */

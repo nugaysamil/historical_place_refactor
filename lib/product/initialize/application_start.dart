@@ -3,15 +3,19 @@ import 'package:easy_logger/easy_logger.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:mapsuygulama/product/utils/const/string_const.dart';
 import '../helper/firebase_options.dart';
 
+
+// Project initialization
 @immutable
 final class ApplicationStart {
   const ApplicationStart._();
   static Future<void> init() async {
     WidgetsFlutterBinding.ensureInitialized();
+    // Project Firebase initialization
     await Firebase.initializeApp(
-      name: 'newhistorical-b4f75',
+      name: firebaseName,
       options: DefaultFirebaseOptions.currentPlatform,
     );
 

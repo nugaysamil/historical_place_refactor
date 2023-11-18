@@ -29,6 +29,8 @@ dependencies:
   easy_localization: ^3.0.2
   http: ^0.13.6
   easy_logger: ^0.0.2
+  json_serializable: ^6.7.1
+  built_value: ^8.7.0
 
 dependency_overrides:
   test_api:

@@ -6,14 +6,10 @@ import 'package:mapsuygulama/feature/profile/profile_update/notification_widget.
 import 'package:mapsuygulama/feature/profile/profile_update/profile_update_widget.dart';
 import 'package:mapsuygulama/feature/profile/profile_update/settings_widget.dart';
 import 'package:mapsuygulama/feature/slack/screen/onbording_screen.dart';
-
 import 'package:rive/rive.dart';
-
-import 'package:mapsuygulama/feature/google/marker_list.dart';
 import 'package:mapsuygulama/feature/google/google.dart';
 import 'package:mapsuygulama/product/models/rive_asset.dart';
 import 'package:mapsuygulama/product/helper/rive_utils_helper.dart';
-
 import 'component/info_card.dart';
 import 'component/side_menu_tile.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -154,7 +150,7 @@ class _SideMenuState extends State<SideMenu> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => OnBordingScreen(),
+                      builder: (context) => OnBoardingScreen(),
                     ),
                   );
                 },
