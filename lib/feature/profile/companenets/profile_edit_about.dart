@@ -10,7 +10,7 @@ class AboutMeWidget extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(25.0),
       child: Text(
-        aboutMeText.tr(),
+        "about_me".tr(),
         style: TextStyle(
           color: Colors.black,
           fontSize: 20,

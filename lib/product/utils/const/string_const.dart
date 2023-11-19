@@ -18,5 +18,4 @@ const dontAccount = 'dont_account';
 const firebaseName = 'newhistorical-b4f75';
 const iconUrl =
     'https://media.istockphoto.com/id/1332100919/tr/vektör/man-icon-black-icon-person-symbol.jpg?s=612x612&w=0&k=20&c=lVmBCgzh7mw_UbIHKvFtpi7W8J21mEdrNQsfOgn0PxA=';
-const aboutMeText = 'About Me';
 const profile = 'Profile';

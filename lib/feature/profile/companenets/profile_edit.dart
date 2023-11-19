@@ -67,25 +67,55 @@ class _ProfileEditState extends State<ProfileEdit> {
                       bottom: 5,
                       right: 0,
                       child: Container(
-                        height: 40,
-                        width: 40,
-                        decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            border: Border.all(
-                              width: 1,
-                              color: Colors.white,
+                          height: 40,
+                          width: 40,
+                          decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              border: Border.all(
+                                width: 1,
+                                color: Colors.white,
+                              ),
+                              color: Colors.black),
+                          child: IconButton(
+                            icon: Icon(
+                              Icons.add_a_photo,
                             ),
-                            color: Colors.black),
-                        child: IconButton(
-                          icon: Icon(
-                            Icons.add_a_photo,
-                          ),
-                          color: Colors.white,
-                          onPressed: () async {
-                            _uploadImage();
-                          },
-                        ),
-                      ),
+                            color: Colors.white,
+                            onPressed: () async {
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return Center(
+                                    child: CircularProgressIndicator(),
+                                  );
+                                },
+                              );
+
+                              try {
+                                final file = await getImage();
+                                if (file != null) {
+                                  final imageUrl =
+                                      await DatabaseServices.uploadImage(file);
+                                  setState(() {
+                                    this.imageUrl = imageUrl;
+                                  });
+                                } else {
+                                  Fluttertoast.showToast(
+                                    msg: 'Lütfen başka bir fotoğraf seçin.',
+                                    toastLength: Toast.LENGTH_SHORT,
+                                    gravity: ToastGravity.CENTER,
+                                    timeInSecForIosWeb: 3,
+                                    backgroundColor: Colors.black,
+                                    textColor: Colors.white,
+                                  );
+                                }
+                              } finally {
+                                Navigator.pop(
+                                  context,
+                                );
+                              }
+                            },
+                          )),
                     ),
                   ],
                 ),
@@ -110,89 +140,101 @@ class _ProfileEditState extends State<ProfileEdit> {
               ),
               SizedBox(height: 40),
               Center(
-                child: ElevatedButton(
-                  onPressed: () {
-                    if (_nameController.text.isEmpty ||
-                        _locationController.text.isEmpty ||
-                        _ageController.text.isEmpty) {
-                      Fluttertoast.showToast(
-                        msg: 'Lütfen tüm alanları doldurunuz.',
-                        toastLength: Toast.LENGTH_SHORT,
-                        gravity: ToastGravity.CENTER,
-                        timeInSecForIosWeb: 3,
-                        backgroundColor: Colors.black,
-                        textColor: Colors.white,
-                      );
-                    } else {
-                      int? age = int.tryParse(_ageController.text);
-                      if (age == null) {
-                        Fluttertoast.showToast(
-                          msg: 'Yaş alanına geçerli bir sayı giriniz.',
-                          toastLength: Toast.LENGTH_SHORT,
-                          gravity: ToastGravity.CENTER,
-                          timeInSecForIosWeb: 3,
-                          backgroundColor: Colors.black,
-                          textColor: Colors.white,
-                        );
-                      } else {
-                        FirebaseService.saveUserData(
-                                _nameController.text,
-                                _locationController.text,
-                                age.toString(),
-                                imageUrl.toString())
-                            .then(
-                          (value) {
-                            Fluttertoast.showToast(
-                              msg: 'Verileriniz doğru kaydedilmiştir.',
-                              toastLength: Toast.LENGTH_SHORT,
-                              gravity: ToastGravity.CENTER,
-                              timeInSecForIosWeb: 3,
-                              backgroundColor: Colors.black,
-                              textColor: Colors.white,
-                            );
-                            Future.delayed(
-                              Duration(seconds: 2),
-                              () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) =>
-                                        CustomMarkerInfoWindow(
-                                      markers: markers,
-                                      customInfoWindowController:
-                                          customInfoWindowController,
-                                    ),
-                                  ),
-                                );
-                              },
-                            );
-                          },
-                        );
-                      }
-                    }
-                  },
-                  child: Text(
-                    'kaydet'.tr().toUpperCase(),
-                    style: TextStyle(
-                      fontSize: 15,
-                      letterSpacing: 2,
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Color.fromARGB(255, 32, 144, 236),
-                    padding: EdgeInsets.symmetric(horizontal: 140),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    minimumSize: Size(0, 50),
-                  ),
-                ),
+                child: _saveButton(context),
               ),
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  ElevatedButton _saveButton(BuildContext context) {
+    return ElevatedButton(
+      onPressed: () {
+        if (_nameController.text.isEmpty ||
+            _locationController.text.isEmpty ||
+            _ageController.text.isEmpty) {
+          Fluttertoast.showToast(
+            msg: 'all_information_required'.tr(),
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIosWeb: 3,
+            backgroundColor: Colors.black,
+            textColor: Colors.white,
+          );
+        } else {
+          int? age = int.tryParse(_ageController.text);
+          if (age == null) {
+            Fluttertoast.showToast(
+              msg: 'age_area'.tr(),
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.CENTER,
+              timeInSecForIosWeb: 3,
+              backgroundColor: Colors.black,
+              textColor: Colors.white,
+            );
+          } else {
+            if (imageUrl == null) {
+              Fluttertoast.showToast(
+                msg: "select_image".tr(),
+                toastLength: Toast.LENGTH_SHORT,
+                gravity: ToastGravity.CENTER,
+                timeInSecForIosWeb: 3,
+                backgroundColor: Colors.black,
+                textColor: Colors.white,
+              );
+            } else {
+              FirebaseService.saveUserData(
+                _nameController.text,
+                _locationController.text,
+                age.toString(),
+                imageUrl.toString(),
+              ).then((value) {
+                Fluttertoast.showToast(
+                  msg: 'correct_data'.tr(),
+                  toastLength: Toast.LENGTH_SHORT,
+                  gravity: ToastGravity.CENTER,
+                  timeInSecForIosWeb: 3,
+                  backgroundColor: Colors.black,
+                  textColor: Colors.white,
+                );
+                Future.delayed(
+                  Duration(seconds: 2),
+                  () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => CustomMarkerInfoWindow(
+                          markers: markers,
+                          customInfoWindowController:
+                              customInfoWindowController,
+                        ),
+                      ),
+                    );
+                  },
+                );
+              });
+            }
+          }
+        }
+      },
+      child: Text(
+        'save'.tr().toUpperCase(),
+        style: TextStyle(
+          fontSize: 15,
+          letterSpacing: 2,
+          color: Colors.white,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+      style: ElevatedButton.styleFrom(
+        backgroundColor: Colors.black,
+        padding: EdgeInsets.symmetric(horizontal: 150),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+        minimumSize: Size(10, 50),
       ),
     );
   }
@@ -211,86 +253,6 @@ class _ProfileEditState extends State<ProfileEdit> {
         profile,
         style: TextStyle(color: Colors.black),
       ),
-    );
-  }
-
-  void _uploadImage() async {
-    // Fotoğrafı seç ve yükle
-    final file = await getImage();
-
-    if (file != null) {
-      // İlerleme göstergesini göster
-      showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            content: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                CircularProgressIndicator(),
-                SizedBox(height: 10),
-                Text("Fotoğraf yükleniyor..."),
-              ],
-            ),
-          );
-        },
-        barrierDismissible: false, 
-      );
-
-      try {
-        final imageUrl = await DatabaseServices.uploadImage(file);
-
-        Navigator.of(context).pop();
-
-        setState(() {
-          this.imageUrl = imageUrl;
-        });
-      } catch (error) {
-        Navigator.of(context).pop(); // İlerleme göstergesini kapat
-        _showErrorDialog();
-      }
-    } else {
-      _showNoImageSelectedDialog();
-    }
-  }
-
-  void _showNoImageSelectedDialog() {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text('Fotoğraf Seçilmedi'),
-          content: Text('Lütfen bir fotoğraf seçin.'),
-          actions: <Widget>[
-            TextButton(
-              child: Text('Tamam'),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
-
-  void _showErrorDialog() {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text('Hata'),
-          content: Text('Fotoğraf yüklenirken bir hata oluştu.'),
-          actions: <Widget>[
-            TextButton(
-              child: Text('Tamam'),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
     );
   }
 }

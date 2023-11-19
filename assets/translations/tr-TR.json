@@ -16,7 +16,7 @@
   "name_surname": "İsim",
   "location": "Lokasyon",
   "age": "Yaş",
-  "save": "kaydet",
+  "save": "Kaydet",
   "age_controller": "Yaş alanına sadece sayı girebilirsiniz.",
   "name_controller": "İsim alanına sadece sayı girebilirsiniz.",
   "search_bar": "Bir hedef arayın.",
@@ -35,5 +35,11 @@
   "source": "Aşağıdaki kaynaklardan, istediğiniz bilgilere erişebilirsiniz",
   "language_resource_tr": "Türkçe Kaynaklar",
   "language_resource_en": "İngilizce Kaynaklar",
-  "about_me": "Hakkımda"
+  "about_me": "Hakkımda",
+  "correct_data": "Verileriniz doğru kaydedilmiştir.",
+  "select_image": "Lütfen bir fotoğraf seçiniz",
+  "age_area": "Yaş alanına geçerli bir sayı giriniz.",
+  "all_information_required": "Lütfen tüm alanları doldurunuz.",
+  "no_photo_selected": "Fotoğraf seçilmedi.",
+  "selected_photo": "Lütfen bir fotoğraf seçin."
 }
