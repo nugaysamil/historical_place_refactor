@@ -82,32 +82,7 @@ class _ProfileEditState extends State<ProfileEdit> {
                           ),
                           color: Colors.white,
                           onPressed: () async {
-                            final file = await getImage();
-                            if (file != null) {
-                              final imageUrl =
-                                  await DatabaseServices.uploadImage(file);
-                              setState(() {
-                                this.imageUrl = imageUrl;
-                              });
-                            } else {
-                              showDialog(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return AlertDialog(
-                                    title: Text('Fotoğraf Seçilmedi'),
-                                    content: Text('Lütfen bir fotoğraf seçin.'),
-                                    actions: <Widget>[
-                                      TextButton(
-                                        child: Text('Tamam'),
-                                        onPressed: () {
-                                          Navigator.of(context).pop();
-                                        },
-                                      ),
-                                    ],
-                                  );
-                                },
-                              );
-                            }
+                            _uploadImage();
                           },
                         ),
                       ),
@@ -236,6 +211,86 @@ class _ProfileEditState extends State<ProfileEdit> {
         profile,
         style: TextStyle(color: Colors.black),
       ),
+    );
+  }
+
+  void _uploadImage() async {
+    // Fotoğrafı seç ve yükle
+    final file = await getImage();
+
+    if (file != null) {
+      // İlerleme göstergesini göster
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                CircularProgressIndicator(),
+                SizedBox(height: 10),
+                Text("Fotoğraf yükleniyor..."),
+              ],
+            ),
+          );
+        },
+        barrierDismissible: false, 
+      );
+
+      try {
+        final imageUrl = await DatabaseServices.uploadImage(file);
+
+        Navigator.of(context).pop();
+
+        setState(() {
+          this.imageUrl = imageUrl;
+        });
+      } catch (error) {
+        Navigator.of(context).pop(); // İlerleme göstergesini kapat
+        _showErrorDialog();
+      }
+    } else {
+      _showNoImageSelectedDialog();
+    }
+  }
+
+  void _showNoImageSelectedDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Fotoğraf Seçilmedi'),
+          content: Text('Lütfen bir fotoğraf seçin.'),
+          actions: <Widget>[
+            TextButton(
+              child: Text('Tamam'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void _showErrorDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Hata'),
+          content: Text('Fotoğraf yüklenirken bir hata oluştu.'),
+          actions: <Widget>[
+            TextButton(
+              child: Text('Tamam'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 }

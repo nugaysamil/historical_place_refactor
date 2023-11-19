@@ -2,7 +2,6 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
 
-
 class AuthRepository {
   const AuthRepository(
     this._auth,
@@ -12,7 +11,7 @@ class AuthRepository {
 
   Stream<User?> get authStateChange => _auth.authStateChanges();
 
- Future<User?> signInWithEmailAndPassword(
+  Future<User?> signInWithEmailAndPassword(
       String email, String password) async {
     try {
       final result = await _auth.signInWithEmailAndPassword(
@@ -22,7 +21,6 @@ class AuthRepository {
       return result.user;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
-        print('Kullanıcı bulunamadı, giriş yapılmayacak.');
         return null;
       } else if (e.code == 'wrong-password') {
         throw AuthException('Wrong Password');
@@ -32,8 +30,7 @@ class AuthRepository {
     }
   }
 
-
- Future<User?> createUserWithEmailAndPassword(
+  Future<User?> createUserWithEmailAndPassword(
       String email, String password) async {
     try {
       final user = await FirebaseAuth.instance.createUserWithEmailAndPassword(

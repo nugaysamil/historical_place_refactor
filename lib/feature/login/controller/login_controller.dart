@@ -20,7 +20,7 @@ class LoginController extends StateNotifier<LoginState> {
           const LoginStateSuccess();
     } catch (e) {
       ref.read(loginControllerProvider.notifier).state =
-          LoginStateError(e.toString());
+          LoginStateError('eeee'.toString());
     }
   }
 

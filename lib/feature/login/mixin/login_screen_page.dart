@@ -18,7 +18,6 @@ import '../widgets/text_field/widget_password_field.dart';
 import '../widgets/text/widget_top_text.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-
 final class LoginPage extends StatefulHookConsumerWidget {
   const LoginPage({super.key});
 
@@ -28,7 +27,6 @@ final class LoginPage extends StatefulHookConsumerWidget {
 
 class _LoginContentState extends ConsumerState<LoginPage>
     with TickerProviderStateMixin {
-
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
@@ -51,12 +49,6 @@ class _LoginContentState extends ConsumerState<LoginPage>
 
   @override
   Widget build(BuildContext context) {
-    ref.listen<LoginState>(loginControllerProvider, ((previous, state) {
-      if (state is LoginStateError) {
-        ScaffoldMessenger.of(context)
-            .showSnackBar(SnackBar(content: Text(state.error)));
-      }
-    }));
     return Stack(
       children: [
         Positioned(
@@ -126,7 +118,7 @@ class _LoginContentState extends ConsumerState<LoginPage>
                             } else {
                               ref.read(loginControllerProvider.notifier).state =
                                   LoginStateError(
-                                      'Böyle bir email bulunamadı.');
+                                      'Lütfen mail ve şifrenizi tekrar girip deneyiniz.');
                             }
                           } catch (e) {
                             ref.read(loginControllerProvider.notifier).state =
