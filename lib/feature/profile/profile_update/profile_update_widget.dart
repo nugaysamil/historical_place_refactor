@@ -3,7 +3,6 @@ import 'package:image_picker/image_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:mapsuygulama/product/database/database_service.dart';
-import 'package:mapsuygulama/feature/google/marker_list.dart';
 import 'package:mapsuygulama/product/database/user_data_service.dart';
 import 'package:mapsuygulama/feature/google/google.dart';
 

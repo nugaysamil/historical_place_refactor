@@ -1,7 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 
 import 'package:flutter/material.dart';
-import 'package:mapsuygulama/feature/profile/companenets/favorite_widget.dart';
+import 'package:mapsuygulama/feature/side/favorite_widget.dart';
 import 'package:mapsuygulama/feature/profile/profile_update/notification_widget.dart';
 import 'package:mapsuygulama/feature/profile/profile_update/profile_update_widget.dart';
 import 'package:mapsuygulama/feature/profile/profile_update/settings_widget.dart';

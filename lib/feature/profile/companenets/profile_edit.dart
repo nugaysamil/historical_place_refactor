@@ -1,11 +1,11 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:mapsuygulama/feature/profile/companenets/profile_edit_about.dart';
-import 'package:mapsuygulama/feature/profile/companenets/profile_edit_text.dart';
+import 'package:mapsuygulama/feature/profile/companenets/text/profile_edit_about_text.dart';
+import 'package:mapsuygulama/feature/profile/companenets/text/profile_edit_text.dart';
 import 'package:mapsuygulama/product/database/database_service.dart';
 import 'package:mapsuygulama/product/database/user_data_service.dart';
-import 'package:mapsuygulama/feature/profile/companenets/profile_edit_input_text.dart';
+import 'package:mapsuygulama/feature/profile/companenets/text/profile_edit_input_text.dart';
 import 'package:mapsuygulama/feature/google/google.dart';
 import 'package:mapsuygulama/product/utils/const/string_const.dart';
 import 'package:mapsuygulama/product/utils/image_util.dart';
@@ -234,7 +234,7 @@ class _ProfileEditState extends State<ProfileEdit> {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
         ),
-        minimumSize: Size(10, 50),
+        minimumSize: Size(0, 50),
       ),
     );
   }

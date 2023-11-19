@@ -98,7 +98,10 @@ class _CustomMarkerInfoWindowState extends State<CustomMarkerInfoWindow>
   Widget build(BuildContext context) {
     return Consumer(builder: (context, ref, child) {
       final authState = ref.watch(authStateProvider);
+      print('authState: $authState');
+
       final markerModel = ref.watch(singleUserDataProvider);
+
       return Scaffold(
         resizeToAvoidBottomInset: false,
         backgroundColor: Color(0xFF17203A),
@@ -206,10 +209,7 @@ class _CustomMarkerInfoWindowState extends State<CustomMarkerInfoWindow>
                               );
                             }
                             return Center(
-                              child: Text(
-                                data[0].name,
-                                style: TextStyle(color: Colors.red),
-                              ),
+                              child: Text(''), // return will be change
                             );
                           },
                           error: (error, stackTrace) =>
@@ -241,8 +241,9 @@ class _CustomMarkerInfoWindowState extends State<CustomMarkerInfoWindow>
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             Visibility(
-                                visible: authState.asData == null,
-                                child: buttonWidget()),
+                              visible: authState.asData?.value != null,
+                              child: buttonWidget(),
+                            ),
                             SizedBox(width: 15),
                             if (isSideMenuClosed) _searchBar(authState)
                           ],
@@ -265,7 +266,7 @@ class _CustomMarkerInfoWindowState extends State<CustomMarkerInfoWindow>
 
   Container _searchBar(AsyncValue<User?> authState) {
     return Container(
-      width: authState.asData == null ? 330 : 380,
+      width: authState.asData?.value != null ? 330 : 380,
       height: 50,
       padding: EdgeInsets.only(left: 15),
       decoration: BoxDecoration(
@@ -431,8 +432,7 @@ class _CustomMarkerInfoWindowState extends State<CustomMarkerInfoWindow>
           color: Colors.white,
         ),
         onPressed: () {
-          zoomVal++;
-          _minus(zoomVal);
+          signOut();
         },
       ),
     );
@@ -454,5 +454,9 @@ class _CustomMarkerInfoWindowState extends State<CustomMarkerInfoWindow>
         CameraPosition(target: LatLng(38.432, 27.1368), zoom: zoomVal),
       ),
     );
+  }
+
+  void signOut() async {
+    await FirebaseAuth.instance.signOut();
   }
 }
