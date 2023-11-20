@@ -41,5 +41,9 @@
   "all_information_required": "Please fill in all fields.",
   "no_photo_selected": "No photo selected",
   "selected_photo": "Please select a photo.",
-  "about_me": "About Me"
+  "about_me": "About Me",
+  "language_change": "Language Change",
+  "language_change_description": "Language changed successfully",
+  "continue": "Continue"
+
 }

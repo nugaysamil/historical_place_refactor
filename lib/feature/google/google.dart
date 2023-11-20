@@ -432,7 +432,10 @@ class _CustomMarkerInfoWindowState extends State<CustomMarkerInfoWindow>
           color: Colors.white,
         ),
         onPressed: () {
-          signOut();
+          zoomVal++;
+
+          _minus(zoomVal);
+          //signOut();
         },
       ),
     );

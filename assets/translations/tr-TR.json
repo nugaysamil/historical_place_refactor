@@ -41,5 +41,9 @@
   "age_area": "Yaş alanına geçerli bir sayı giriniz.",
   "all_information_required": "Lütfen tüm alanları doldurunuz.",
   "no_photo_selected": "Fotoğraf seçilmedi.",
-  "selected_photo": "Lütfen bir fotoğraf seçin."
+  "selected_photo": "Lütfen bir fotoğraf seçin.",
+  "language_change": "Dil Değişti",
+  "language_change_description": "Dil başarılı bir şekilde değişti.",
+  "continue": "Devam et"
+
 }
