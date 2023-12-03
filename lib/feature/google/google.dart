@@ -132,13 +132,15 @@ class _CustomMarkerInfoWindowState extends State<CustomMarkerInfoWindow>
                         _googleMaps(),
                         markerModel.when(
                           data: (data) {
+                            print(data);
                             for (int j = 0; j < data.length; j++) {
                               markers.add(
                                 Marker(
                                   markerId: MarkerId(data[j].id.toString()),
                                   position: LatLng(
                                       data[j].latitude, data[j].longitude),
-                                  icon: markerIcon!,
+                                  icon: markerIcon! ??
+                                      BitmapDescriptor.defaultMarker,
                                   onTap: () async {
                                     var myData = await ApiService()
                                         .getRuins(data[0].slug);
@@ -266,7 +268,7 @@ class _CustomMarkerInfoWindowState extends State<CustomMarkerInfoWindow>
 
   Container _searchBar(AsyncValue<User?> authState) {
     return Container(
-      width: authState.asData?.value != null ? 330 : 380,
+      width: authState.asData?.value != null ? 300 : 350,
       height: 50,
       padding: EdgeInsets.only(left: 15),
       decoration: BoxDecoration(

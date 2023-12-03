@@ -230,11 +230,11 @@ class _ProfileEditState extends State<ProfileEdit> {
       ),
       style: ElevatedButton.styleFrom(
         backgroundColor: Colors.black,
-        padding: EdgeInsets.symmetric(horizontal: 150),
+        padding: EdgeInsets.symmetric(horizontal: 120),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
         ),
-        minimumSize: Size(0, 50),
+        minimumSize: Size(10, 50),
       ),
     );
   }

@@ -1,4 +1,5 @@
 {
-  "cmake.sourceDirectory": "/Users/samilnugay/Desktop/historical-rebuilt-new-main/linux",
-  "cSpell.words": ["mapsuygulama"]
+  "cmake.sourceDirectory": "/Users/samilnugay/Downloads/historical-place-refactor/linux",
+  "cSpell.words": ["mapsuygulama"],
+  "java.configuration.updateBuildConfiguration": "disabled"
 }
