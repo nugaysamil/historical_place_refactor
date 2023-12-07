@@ -10,6 +10,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:google_maps_webservice/places.dart';
 import 'package:mapsuygulama/animations/animation_widget.dart';
 import 'package:mapsuygulama/feature/google/description/description_widget.dart';
+import 'package:mapsuygulama/feature/google/zoom_in_function.dart';
 import 'package:mapsuygulama/product/data_provider/api_provider.dart';
 import 'package:mapsuygulama/product/data_provider/auth_provider.dart';
 import 'package:mapsuygulama/feature/side/side_menu_widget.dart';
@@ -17,6 +18,8 @@ import 'package:mapsuygulama/product/service/fetch_api.dart';
 import 'package:mapsuygulama/product/helper/location_service.dart';
 import 'package:mapsuygulama/product/service/google_places_service.dart';
 import 'package:mapsuygulama/product/utils/const/string_const.dart';
+import 'package:mapsuygulama/product/utils/map_utility.dart';
+import 'package:mapsuygulama/product/utils/zoom_utility.dart';
 import 'package:rive/rive.dart';
 
 class CustomMarkerInfoWindow extends StatefulWidget {
@@ -251,9 +254,24 @@ class _CustomMarkerInfoWindowState extends State<CustomMarkerInfoWindow>
                           ],
                         ),
                         SizedBox(height: 15),
-                        if (isSideMenuClosed) _zoomplusFunction(),
+                        if (isSideMenuClosed)  ZoomInButton(
+                            onPressed: () {
+                              final zoomUtility = ZoomUtility(_controller);
+
+                              zoomVal++;
+                              zoomUtility.zoom(zoomVal);
+                            },
+                          ),
                         SizedBox(height: 15),
-                        if (isSideMenuClosed) _zoominusfunction(),
+                        if (isSideMenuClosed)
+                          ZoomInButton(
+                            onPressed: () {
+                              final zoomUtility = ZoomUtility(_controller);
+
+                              zoomVal--;
+                              zoomUtility.zoom(zoomVal);
+                            },
+                          ),
                       ],
                     ),
                   ),
@@ -289,7 +307,10 @@ class _CustomMarkerInfoWindowState extends State<CustomMarkerInfoWindow>
           final _selectedPlace =
               await GooglePlacesService().showGoogleAutoComplete(context);
           _destinationController.text = _selectedPlace.description!;
-          goToPlace(_selectedPlace.placeId!);
+          final mapUtility = MapUtility(
+              GoogleMapsPlaces(apiKey: kGoogleApiKey), _mapController);
+          mapUtility.goToPlace(_selectedPlace.placeId!);
+
           setState(() {
             showSourceField = true;
           });
@@ -374,79 +395,8 @@ class _CustomMarkerInfoWindowState extends State<CustomMarkerInfoWindow>
     );
   }
 
-  void goToPlace(String placeId) async {
-    final places = GoogleMapsPlaces(apiKey: kGoogleApiKey);
-    final response = await places.getDetailsByPlaceId(placeId);
-
-    if (response.status == "OK") {
-      final result = response.result;
-      final location = result.geometry?.location;
-      if (location != null) {
-        _mapController.animateCamera(CameraUpdate.newLatLngZoom(
-          LatLng(location.lat, location.lng),
-          15,
-        ));
-      }
-    }
-  }
+ 
 
 
-  Widget _zoominusfunction() {
-    return Align(
-      alignment: Alignment.topRight,
-      child: IconButton(
-        iconSize: 35,
-        icon: Icon(
-          Icons.zoom_out,
-          color: Colors.white,
-        ),
-        onPressed: () {
-          zoomVal--;
 
-          _plus(zoomVal);
-        },
-      ),
-    );
-  }
-
-  Widget _zoomplusFunction() {
-    return Align(
-      alignment: Alignment.topRight,
-      child: IconButton(
-        iconSize: 35,
-        icon: Icon(
-          Icons.zoom_in,
-          color: Colors.white,
-        ),
-        onPressed: () {
-          zoomVal++;
-
-          _minus(zoomVal);
-          //signOut();
-        },
-      ),
-    );
-  }
-
-  Future<void> _minus(double zoomVal) async {
-    final GoogleMapController controller = await _controller.future;
-    controller.animateCamera(
-      CameraUpdate.newCameraPosition(
-        CameraPosition(target: LatLng(38.432, 27.1368), zoom: zoomVal),
-      ),
-    );
-  }
-
-  Future<void> _plus(double zoomVal) async {
-    final GoogleMapController controller = await _controller.future;
-    controller.animateCamera(
-      CameraUpdate.newCameraPosition(
-        CameraPosition(target: LatLng(38.432, 27.1368), zoom: zoomVal),
-      ),
-    );
-  }
-
-  void signOut() async {
-    await FirebaseAuth.instance.signOut();
-  }
 }
