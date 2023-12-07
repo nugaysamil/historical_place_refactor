@@ -5,7 +5,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mapsuygulama/product/database/description_notifier.dart';
 import 'package:mapsuygulama/product/models/favorite_models.dart';
 
-
 final favoritesProvider =
     StateNotifierProvider<FavoritesStateNotifier, List<Favorite>>(
   (ref) => FavoritesStateNotifier(),

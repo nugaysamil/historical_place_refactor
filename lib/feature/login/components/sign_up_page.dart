@@ -1,4 +1,4 @@
-// ignore_for_file: invalid_use_of_protected_member
+// ignore_for_file: invalid_use_of_protected_member, invalid_use_of_visible_for_testing_member
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -65,7 +65,7 @@ class _LoginContentState extends ConsumerState<LoginContent>
     );
   }
 
-  Widget signInWithGoogleLogo() {
+   Widget signInWithGoogleLogo() {
     return Padding(
       padding: const EdgeInsets.only(left: 0),
       child: Row(
@@ -154,7 +154,7 @@ class _LoginContentState extends ConsumerState<LoginContent>
                                 .read(loginControllerProvider.notifier)
                                 .createUser(email, password);
                             Fluttertoast.showToast(
-                              msg: 'Signup successful.',
+                              msg: 'SigUp successful.',
                               toastLength: Toast.LENGTH_SHORT,
                             );
                             Future.delayed(

@@ -31,7 +31,6 @@ dependencies:
   easy_logger: ^0.0.2
   json_serializable: ^6.7.1
   shared_preferences: ^2.0.8
-  change_app_package_name: ^1.1.0
 
 
 dependency_overrides:
@@ -41,16 +40,16 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  firebase_core: ^2.14.0
-  firebase_auth: ^4.6.3
+  firebase_core: ^2.24.0
+  firebase_auth: ^4.15.0
   custom_info_window: ^1.0.1
   link_text: ^0.2.0
   get: ^4.6.5
-  location: ^4.4.0
+  location: ^5.0.3
   rive: ^0.11.3
-  google_sign_in: ^6.1.4
-  firebase_storage: ^11.2.4
-  cloud_firestore: ^4.8.2
+  google_sign_in: ^6.1.6
+  firebase_storage: ^11.5.3
+  cloud_firestore: ^4.13.3
   flutter_google_places: ^0.3.0
 
 flutter:

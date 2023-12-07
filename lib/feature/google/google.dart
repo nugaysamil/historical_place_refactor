@@ -15,9 +15,9 @@ import 'package:mapsuygulama/product/data_provider/auth_provider.dart';
 import 'package:mapsuygulama/feature/side/side_menu_widget.dart';
 import 'package:mapsuygulama/product/service/fetch_api.dart';
 import 'package:mapsuygulama/product/helper/location_service.dart';
+import 'package:mapsuygulama/product/service/google_places_service.dart';
 import 'package:mapsuygulama/product/utils/const/string_const.dart';
 import 'package:rive/rive.dart';
-import 'package:flutter_google_places/flutter_google_places.dart';
 
 class CustomMarkerInfoWindow extends StatefulWidget {
   final Set<Marker> markers;
@@ -98,7 +98,7 @@ class _CustomMarkerInfoWindowState extends State<CustomMarkerInfoWindow>
   Widget build(BuildContext context) {
     return Consumer(builder: (context, ref, child) {
       final authState = ref.watch(authStateProvider);
-      print('authState: $authState');
+      // print('authState: $authState');
 
       final markerModel = ref.watch(singleUserDataProvider);
 
@@ -132,18 +132,19 @@ class _CustomMarkerInfoWindowState extends State<CustomMarkerInfoWindow>
                         _googleMaps(),
                         markerModel.when(
                           data: (data) {
-                            print(data);
+                            print('İKİNCİ ÇAĞIRIYOO :' + data.toString());
                             for (int j = 0; j < data.length; j++) {
                               markers.add(
                                 Marker(
                                   markerId: MarkerId(data[j].id.toString()),
                                   position: LatLng(
                                       data[j].latitude, data[j].longitude),
-                                  icon: markerIcon! ??
-                                      BitmapDescriptor.defaultMarker,
+                                  icon: BitmapDescriptor.defaultMarkerWithHue(
+                                      BitmapDescriptor.hueBlue),
                                   onTap: () async {
                                     var myData = await ApiService()
-                                        .getRuins(data[0].slug);
+                                        .getRuins(data[j].slug);
+
                                     await showDialog(
                                       context: context,
                                       builder: (BuildContext context) {
@@ -209,10 +210,9 @@ class _CustomMarkerInfoWindowState extends State<CustomMarkerInfoWindow>
                                   },
                                 ),
                               );
+                              print('AAAA' + markers.toString());
                             }
-                            return Center(
-                              child: Text(''), // return will be change
-                            );
+                            return Text('aa');
                           },
                           error: (error, stackTrace) =>
                               Center(child: Text('Error: $error')),
@@ -286,7 +286,8 @@ class _CustomMarkerInfoWindowState extends State<CustomMarkerInfoWindow>
         controller: _destinationController,
         readOnly: true,
         onTap: () async {
-          final _selectedPlace = await showGoogleAutoComplete();
+          final _selectedPlace =
+              await GooglePlacesService().showGoogleAutoComplete(context);
           _destinationController.text = _selectedPlace.description!;
           goToPlace(_selectedPlace.placeId!);
           setState(() {
@@ -389,22 +390,6 @@ class _CustomMarkerInfoWindowState extends State<CustomMarkerInfoWindow>
     }
   }
 
-  Future<Prediction> showGoogleAutoComplete() async {
-    Prediction? p = await PlacesAutocomplete.show(
-      offset: 0,
-      radius: 1000,
-      strictbounds: false,
-      region: "tr",
-      language: "en",
-      context: context,
-      mode: Mode.overlay,
-      apiKey: kGoogleApiKey,
-      components: [Component(Component.country, "tr")],
-      types: ["(cities)"],
-      hint: "Search City",
-    );
-    return p!;
-  }
 
   Widget _zoominusfunction() {
     return Align(

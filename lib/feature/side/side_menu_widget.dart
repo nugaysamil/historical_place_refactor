@@ -69,9 +69,9 @@ class _SideMenuState extends State<SideMenu> {
                                 return ProfileEditUpdate();
                               } else if (menu.title == 'Home') {
                                 return CustomMarkerInfoWindow(
-                                  markers: markers,
                                   customInfoWindowController:
                                       customInfoWindowController,
+                                  markers: markers,
                                 );
                               } else if (menu.title == 'Search') {
                                 return CustomMarkerInfoWindow(
