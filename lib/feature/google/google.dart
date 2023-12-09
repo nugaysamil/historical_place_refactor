@@ -8,21 +8,18 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:google_maps_webservice/places.dart';
-import 'package:mapsuygulama/animations/animation_widget.dart';
-import 'package:mapsuygulama/feature/google/description/description_widget.dart';
-import 'package:mapsuygulama/feature/google/zoom_in_function.dart';
-import 'package:mapsuygulama/product/data_provider/api_provider.dart';
+import 'package:mapsuygulama/feature/google/marker_list_widget.dart';
+import 'package:mapsuygulama/product/models/api_model.dart';
+import 'package:mapsuygulama/product/utils/zoom_in_function.dart';
 import 'package:mapsuygulama/product/data_provider/auth_provider.dart';
 import 'package:mapsuygulama/feature/side/side_menu_widget.dart';
-import 'package:mapsuygulama/product/service/fetch_api.dart';
-import 'package:mapsuygulama/product/helper/location_service.dart';
 import 'package:mapsuygulama/product/service/google_places_service.dart';
 import 'package:mapsuygulama/product/utils/const/string_const.dart';
 import 'package:mapsuygulama/product/utils/map_utility.dart';
 import 'package:mapsuygulama/product/utils/zoom_utility.dart';
 import 'package:rive/rive.dart';
 
-class CustomMarkerInfoWindow extends StatefulWidget {
+class CustomMarkerInfoWindow extends ConsumerStatefulWidget {
   final Set<Marker> markers;
   final CustomInfoWindowController customInfoWindowController;
 
@@ -32,19 +29,18 @@ class CustomMarkerInfoWindow extends StatefulWidget {
       required this.customInfoWindowController});
 
   @override
-  State<CustomMarkerInfoWindow> createState() => _CustomMarkerInfoWindowState();
+  _CustomConsumerWidgetState createState() => _CustomConsumerWidgetState();
 }
-
-Set<Marker> markers = {};
+late List<MarkerModel> markerModelData;
 
 CustomInfoWindowController customInfoWindowController =
     CustomInfoWindowController();
 
-class _CustomMarkerInfoWindowState extends State<CustomMarkerInfoWindow>
+class _CustomConsumerWidgetState extends ConsumerState<CustomMarkerInfoWindow>
     with SingleTickerProviderStateMixin {
   bool isSideMenuClosed = true;
   bool showSourceField = false;
-
+   Completer<GoogleMapController>? _controller;
   late GoogleMapController _mapController;
   late AnimationController _animationController;
   late Animation<double> animation;
@@ -52,17 +48,9 @@ class _CustomMarkerInfoWindowState extends State<CustomMarkerInfoWindow>
 
   TextEditingController _destinationController = TextEditingController();
 
-  String mapTheme = '';
   double zoomVal = 5.0;
-  final Completer<GoogleMapController> _controller =
-      Completer<GoogleMapController>();
-
   @override
   void initState() {
-    addCustomIcon();
-    DefaultAssetBundle.of(context)
-        .loadString(mapThemeAubergine)
-        .then((value) => mapTheme = value);
     _animationController = AnimationController(
       vsync: this,
       duration: Duration(milliseconds: 200),
@@ -79,209 +67,90 @@ class _CustomMarkerInfoWindowState extends State<CustomMarkerInfoWindow>
 
   @override
   void dispose() {
-    _animationController.dispose();
     _mapController.dispose();
+    _animationController.dispose();
     _destinationController.dispose();
     super.dispose();
   }
 
-  BitmapDescriptor? markerIcon;
-
-  Future<void> addCustomIcon() async {
-    final icon = await BitmapDescriptor.fromAssetImage(
-      ImageConfiguration(),
-      starIcon,
-    );
-    setState(() {
-      markerIcon = icon;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
-    return Consumer(builder: (context, ref, child) {
-      final authState = ref.watch(authStateProvider);
-      // print('authState: $authState');
-
-      final markerModel = ref.watch(singleUserDataProvider);
-
-      return Scaffold(
-        resizeToAvoidBottomInset: false,
-        backgroundColor: Color(0xFF17203A),
-        extendBody: true,
-        body: Stack(
-          children: [
-            AnimatedPositioned(
-              duration: Duration(milliseconds: 200),
-              curve: Curves.fastOutSlowIn,
-              width: 288,
-              left: isSideMenuClosed ? -288 : 0,
-              height: MediaQuery.of(context).size.height,
-              child: SideMenu(),
+    final authState = ref.watch(authStateProvider);
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
+      backgroundColor: Color(0xFF17203A),
+      extendBody: true,
+      body: Stack(
+        children: [
+          AnimatedPositioned(
+            duration: Duration(milliseconds: 200),
+            curve: Curves.fastOutSlowIn,
+            width: 288,
+            left: isSideMenuClosed ? -288 : 0,
+            height: MediaQuery.of(context).size.height,
+            child: SideMenu(),
+          ),
+          Transform.translate(
+            offset: Offset(animation.value * 265, 0),
+            child: Transform.scale(
+              scale: scaleAnimation.value,
+              child: GoogleMapsWidget(),
             ),
-            Transform(
-              alignment: Alignment.center,
-              transform: Matrix4.identity()
-                ..setEntry(3, 2, 0.001)
-                ..rotateY(animation.value - 30 * animation.value * pi / 75),
-              child: Transform.translate(
-                offset: Offset(animation.value * 265, 0),
-                child: Transform.scale(
-                  scale: scaleAnimation.value,
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.all(Radius.circular(24)),
-                    child: Stack(
-                      children: [
-                        _googleMaps(),
-                        markerModel.when(
-                          data: (data) {
-                            print('İKİNCİ ÇAĞIRIYOO :' + data.toString());
-                            for (int j = 0; j < data.length; j++) {
-                              markers.add(
-                                Marker(
-                                  markerId: MarkerId(data[j].id.toString()),
-                                  position: LatLng(
-                                      data[j].latitude, data[j].longitude),
-                                  icon: BitmapDescriptor.defaultMarkerWithHue(
-                                      BitmapDescriptor.hueBlue),
-                                  onTap: () async {
-                                    var myData = await ApiService()
-                                        .getRuins(data[j].slug);
+          ),
+          AnimatedPositioned(
+            duration: Duration(milliseconds: 200),
+            top: 16,
+            left: isSideMenuClosed ? 0 : 230,
+            curve: Curves.fastOutSlowIn,
+            child: SafeArea(
+              child: Padding(
+                padding: EdgeInsets.only(left: 10),
+                child: Align(
+                  alignment: Alignment.topLeft,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Visibility(
+                            visible: authState.asData?.value != null,
+                            child: buttonWidget(),
+                          ),
+                          SizedBox(width: 15),
+                          if (isSideMenuClosed) _searchBar(authState)
+                        ],
+                      ),
+                      SizedBox(height: 15),
+                      if (isSideMenuClosed)
+                        ZoomInButton(
+                          onPressed: () {
+                            final zoomUtility = ZoomUtility(_controller!);
 
-                                    await showDialog(
-                                      context: context,
-                                      builder: (BuildContext context) {
-                                        return Padding(
-                                          padding:
-                                              const EdgeInsets.only(top: 300),
-                                          child: Dialog(
-                                            backgroundColor: Colors.transparent,
-                                            elevation: 8.0,
-                                            insetPadding: EdgeInsets.all(16.0),
-                                            child: Container(
-                                              height: 350,
-                                              child:
-                                                  DraggableScrollableActuator(
-                                                child: Column(
-                                                  children: [
-                                                    SizedBox(
-                                                      height: 200,
-                                                      width: 200,
-                                                      child: Image.network(
-                                                        placeUrl +
-                                                            myData['image']
-                                                                .toString(),
-                                                      ),
-                                                    ),
-                                                    SizedBox(height: 15),
-                                                    Text(
-                                                      data[j].name,
-                                                      style: TextStyle(
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        fontSize: 20,
-                                                      ),
-                                                    ),
-                                                    SizedBox(height: 10),
-                                                    AnimatedTextButton(
-                                                      text: 'more_information'
-                                                          .tr(),
-                                                      onPressed: () {
-                                                        Navigator.push(
-                                                          context,
-                                                          MaterialPageRoute(
-                                                            builder: (context) =>
-                                                                DescriptionDetails(
-                                                              markerList:
-                                                                  data[j].name,
-                                                              data: myData,
-                                                              placeUrl:
-                                                                  placeUrl,
-                                                            ),
-                                                          ),
-                                                        );
-                                                      },
-                                                    )
-                                                  ],
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        );
-                                      },
-                                    );
-                                  },
-                                ),
-                              );
-                              print('AAAA' + markers.toString());
-                            }
-                            return Text('aa');
+                            zoomVal++;
+                            zoomUtility.zoom(zoomVal);
                           },
-                          error: (error, stackTrace) =>
-                              Center(child: Text('Error: $error')),
-                          loading: () =>
-                              Center(child: CircularProgressIndicator()),
-                        )
-                      ],
-                    ),
+                        ),
+                      SizedBox(height: 15),
+                      if (isSideMenuClosed)
+                        ZoomInButton(
+                          onPressed: () {
+                            final zoomUtility = ZoomUtility(_controller!);
+
+                            zoomVal--;
+                            zoomUtility.zoom(zoomVal);
+                          },
+                        ),
+                    ],
                   ),
                 ),
               ),
             ),
-            AnimatedPositioned(
-              duration: Duration(milliseconds: 200),
-              top: 16,
-              left: isSideMenuClosed ? 0 : 230,
-              curve: Curves.fastOutSlowIn,
-              child: SafeArea(
-                child: Padding(
-                  padding: EdgeInsets.only(left: 10),
-                  child: Align(
-                    alignment: Alignment.topLeft,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Visibility(
-                              visible: authState.asData?.value != null,
-                              child: buttonWidget(),
-                            ),
-                            SizedBox(width: 15),
-                            if (isSideMenuClosed) _searchBar(authState)
-                          ],
-                        ),
-                        SizedBox(height: 15),
-                        if (isSideMenuClosed)  ZoomInButton(
-                            onPressed: () {
-                              final zoomUtility = ZoomUtility(_controller);
-
-                              zoomVal++;
-                              zoomUtility.zoom(zoomVal);
-                            },
-                          ),
-                        SizedBox(height: 15),
-                        if (isSideMenuClosed)
-                          ZoomInButton(
-                            onPressed: () {
-                              final zoomUtility = ZoomUtility(_controller);
-
-                              zoomVal--;
-                              zoomUtility.zoom(zoomVal);
-                            },
-                          ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-            )
-          ],
-        ),
-      );
-    });
+          )
+        ],
+      ),
+    );
   }
 
   Container _searchBar(AsyncValue<User?> authState) {
@@ -360,43 +229,101 @@ class _CustomMarkerInfoWindowState extends State<CustomMarkerInfoWindow>
       ),
     );
   }
-
-  GoogleMap _googleMaps() {
-    return GoogleMap(
-      myLocationButtonEnabled: true,
-      myLocationEnabled: true,
-      onMapCreated: (controller) async {
-        setState(() {});
-        controller.setMapStyle(mapTheme);
-        _mapController = controller;
-        _controller.complete(controller);
-        try {
-          final currentPosition = await LocationService.getCurrentLocation();
-          controller.animateCamera(
-            CameraUpdate.newCameraPosition(
-              CameraPosition(
-                target: LatLng(
-                  currentPosition.latitude,
-                  currentPosition.longitude,
-                ),
-                zoom: 15,
-              ),
-            ),
-          );
-        } catch (e) {
-          print('Error getting current location: $e');
-        }
-      },
-      markers: markers,
-      initialCameraPosition: const CameraPosition(
-        target: LatLng(38.9573415, 35.240741),
-        zoom: 5,
-      ),
-    );
-  }
-
- 
-
-
-
 }
+
+
+
+
+/* 
+          markerModel.when(
+                    data: (data) {
+                      markerModelData = data;
+
+                      for (int j = 0; j < markerModelData.length; j++) {
+                        print('markerListtttttttttt: $markerModelData');
+
+                        markers.add(
+                          Marker(
+                            markerId:
+                                MarkerId(markerModelData[j].id.toString()),
+                            position: LatLng(
+                              markerModelData[j].latitude,
+                              markerModelData[j].longitude,
+                            ),
+                            icon: BitmapDescriptor.defaultMarkerWithHue(
+                                BitmapDescriptor.hueBlue),
+                            onTap: () async {
+                              print('markersss' + markers.toString());
+
+                              var myData = await ApiService()
+                                  .getRuins(markerModelData[j].slug);
+
+                              await showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return Padding(
+                                    padding: const EdgeInsets.only(top: 300),
+                                    child: Dialog(
+                                      backgroundColor: Colors.transparent,
+                                      elevation: 8.0,
+                                      insetPadding: EdgeInsets.all(16.0),
+                                      child: Container(
+                                        height: 350,
+                                        child: DraggableScrollableActuator(
+                                          child: Column(
+                                            children: [
+                                              SizedBox(
+                                                height: 200,
+                                                width: 200,
+                                                child: Image.network(
+                                                  placeUrl +
+                                                      myData['image']
+                                                          .toString(),
+                                                ),
+                                              ),
+                                              SizedBox(height: 15),
+                                              Text(
+                                                markerModelData[j].name,
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 20,
+                                                ),
+                                              ),
+                                              SizedBox(height: 10),
+                                              AnimatedTextButton(
+                                                text: 'more_information'.tr(),
+                                                onPressed: () {
+                                                  Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          DescriptionDetails(
+                                                        markerList:
+                                                            markerModelData[j]
+                                                                .name,
+                                                        data: myData,
+                                                        placeUrl: placeUrl,
+                                                      ),
+                                                    ),
+                                                  );
+                                                },
+                                              )
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  );
+                                },
+                              );
+                            },
+                          ),
+                        );
+                      }
+
+                      return Text('aa');
+                    },
+                    error: (error, stackTrace) =>
+                        Center(child: Text('Error: $error')),
+                    loading: () => Center(child: CircularProgressIndicator()),
+                  )),  */

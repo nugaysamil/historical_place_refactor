@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../models/api_model.dart';
@@ -18,8 +17,6 @@ class ApiService {
       for (var item in jsonData) {
         markerList.add(MarkerModel.fromMap(item as Map<String, dynamic>));
       }
-
-
 
       return markerList;
     } else {
@@ -47,3 +44,4 @@ class ApiService {
   }
 }
 
+final providerFetchData = Provider<ApiService>((ref) => ApiService());
