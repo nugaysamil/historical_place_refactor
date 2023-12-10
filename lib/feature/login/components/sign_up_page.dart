@@ -219,8 +219,6 @@ class _LoginContentState extends ConsumerState<LoginContent>
             context,
             MaterialPageRoute(
               builder: (context) => CustomMarkerInfoWindow(
-                markers: markers,
-                customInfoWindowController: customInfoWindowController,
               ),
             ),
           );

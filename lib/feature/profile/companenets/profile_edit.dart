@@ -206,9 +206,7 @@ class _ProfileEditState extends State<ProfileEdit> {
                       context,
                       MaterialPageRoute(
                         builder: (context) => CustomMarkerInfoWindow(
-                          markers: markers,
-                          customInfoWindowController:
-                              customInfoWindowController,
+                       
                         ),
                       ),
                     );

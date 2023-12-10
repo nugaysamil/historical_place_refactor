@@ -10,53 +10,32 @@ import 'package:mapsuygulama/product/service/fetch_api.dart';
 import 'package:mapsuygulama/product/utils/const/string_const.dart';
 
 class MarkerListDetails extends ConsumerStatefulWidget {
-
   const MarkerListDetails({super.key});
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
       _MarkerListDetailsState();
 }
-Set<Marker> markers = {};
-
 
 class _MarkerListDetailsState extends ConsumerState<MarkerListDetails> {
+  List<MarkerModel> markers = [];
 
-  BitmapDescriptor? markerIcon;
-  late List<MarkerModel> markerData;
-
-  Future<void> addCustomIcon() async {
-    final icon = await BitmapDescriptor.fromAssetImage(
-      ImageConfiguration(),
-      starIcon,
-    );
-    setState(() {
-      markerIcon = icon;
-    });
-  }
-
-  @override
-  void initState() {
-    addCustomIcon();
-    super.initState();
-  }
-/*  */
   @override
   Widget build(BuildContext context) {
     final markerModel = ref.watch(singleUserDataProvider);
 
     return markerModel.when(
       data: (data) {
-        markerData = data;
-        for (int j = 0; j < markerData.length; j++) {
-          print(markerData);
+        for (int j = 0; j < data.length; j++) {
+          print(data);
+          markers = data.map((e) => null)
           markers.add(
             Marker(
-              markerId: MarkerId(markerData[j].id.toString()),
-              position: LatLng(markerData[j].latitude, markerData[j].longitude),
-              icon: markerIcon!,
+              markerId: MarkerId(data[j].id.toString()),
+              position: LatLng(data[j].latitude, data[j].longitude),
+              icon: BitmapDescriptor.defaultMarker,
               onTap: () async {
-                var myData = await ApiService().getRuins(markerData[j].slug);
+                var myData = await ApiService().getRuins(data[j].slug);
 
                 await showDialog(
                   context: context,
@@ -81,7 +60,7 @@ class _MarkerListDetailsState extends ConsumerState<MarkerListDetails> {
                                 ),
                                 SizedBox(height: 15),
                                 Text(
-                                  markerData[j].name,
+                                  data[j].name,
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontSize: 20,
@@ -96,7 +75,7 @@ class _MarkerListDetailsState extends ConsumerState<MarkerListDetails> {
                                       MaterialPageRoute(
                                         builder: (context) =>
                                             DescriptionDetails(
-                                          markerList: markerData[j].name,
+                                          markerList: data[j].name,
                                           data: myData,
                                           placeUrl: placeUrl,
                                         ),
@@ -116,7 +95,6 @@ class _MarkerListDetailsState extends ConsumerState<MarkerListDetails> {
             ),
           );
         }
-        print(markerData);
         return Container();
       },
       error: (error, stackTrace) => Center(child: Text('Error: $error')),
@@ -124,4 +102,4 @@ class _MarkerListDetailsState extends ConsumerState<MarkerListDetails> {
     );
   }
 }
- */
+  */

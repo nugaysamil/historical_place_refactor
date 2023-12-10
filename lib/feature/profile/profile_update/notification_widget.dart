@@ -16,8 +16,6 @@ class NotificationWidget extends StatelessWidget {
               context,
               MaterialPageRoute(
                 builder: (context) => CustomMarkerInfoWindow(
-                  customInfoWindowController: customInfoWindowController,
-                  markers: markers,
                 ),
               ),
             );

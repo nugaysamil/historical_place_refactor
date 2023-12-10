@@ -17,8 +17,8 @@ class AuthChecker extends ConsumerWidget {
       data: (user) {
         if (user != null) {
           return CustomMarkerInfoWindow(
-              markers: markers,
-              customInfoWindowController: customInfoWindowController);
+         
+              );
         } else {
           return SlackScreen();
         }

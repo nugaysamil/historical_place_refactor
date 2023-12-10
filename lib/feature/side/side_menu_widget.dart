@@ -33,152 +33,147 @@ class _SideMenuState extends State<SideMenu> {
         height: double.infinity,
         color: Color(0xFF17203A),
         child: SafeArea(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              InfoCard(),
-              _browseText(context),
-              ...sideMenus.map(
-                (menu) => SideMenuTile(
-                  menu: menu,
-                  press: () {
-                    menu.input!.change(true);
-                    setState(() {
-                      selectedMenu = menu;
-                    });
-
-                    Future.delayed(
-                      Duration(milliseconds: 750),
-                      () {
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                InfoCard(),
+                _browseText(context),
+                ...sideMenus.map(
+                  (menu) => SideMenuTile(
+                    menu: menu,
+                    press: () {
+                      menu.input!.change(true);
+                      setState(() {
+                        selectedMenu = menu;
+                      });
+                      SizedBox(height: 8,width: 8);
+            
+                      Future.delayed(
+                        Duration(milliseconds: 750),
+                        () {
+                          menu.input!.change(false);
+                          Navigator.pop(context);
+                          showDialog(
+                            context: context,
+                            barrierDismissible: false,
+                            builder: (BuildContext context) {
+                              return Center(
+                                child: CircularProgressIndicator(),
+                              );
+                            },
+                          );
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) {
+                                if (menu.title == 'Profile') {
+                                  return ProfileEditUpdate();
+                                } else if (menu.title == 'Home') {
+                                  return CustomMarkerInfoWindow();
+                                } else if (menu.title == 'Search') {
+                                  return CustomMarkerInfoWindow();
+                                }
+                                return NotificationWidget();
+                              },
+                            ),
+                          );
+                        },
+                      );
+                    },
+                    riveonInit: (artboard) {
+                      StateMachineController controller =
+                          RiveUtils.getRiveController(artboard,
+                              stateMachineName: menu.stateMachineName);
+                      menu.input = controller.findSMI('active') as SMIBool;
+                    },
+                    isActive: selectedMenu == menu,
+                  ),
+                ),
+                _historyText(context),
+                ...sideMenu2.map(
+                  (menu) => SideMenuTile(
+                    menu: menu,
+                    press: () {
+                      menu.input!.change(true);
+                      Future.delayed(Duration(milliseconds: 750), () {
                         menu.input!.change(false);
-                        Navigator.pop(context);
-                        showDialog(
-                          context: context,
-                          barrierDismissible: false,
-                          builder: (BuildContext context) {
-                            return Center(
-                              child: CircularProgressIndicator(),
-                            );
-                          },
-                        );
                         Navigator.push(
                           context,
-                          MaterialPageRoute(
-                            builder: (context) {
-                              if (menu.title == 'Profile') {
-                                return ProfileEditUpdate();
-                              } else if (menu.title == 'Home') {
-                                return CustomMarkerInfoWindow(
-                                  customInfoWindowController:
-                                      customInfoWindowController,
-                                  markers: markers,
-                                );
-                              } else if (menu.title == 'Search') {
-                                return CustomMarkerInfoWindow(
-                                  markers: markers,
-                                  customInfoWindowController:
-                                      customInfoWindowController,
-                                );
-                              }
-                              return NotificationWidget();
-                            },
-                          ),
+                          MaterialPageRoute(builder: (context) {
+                            if (menu.title == 'Settings') {
+                              return LanguageSelection();
+                            }
+                            return FavWidget();
+                          }),
+                        );
+                      });
+                      setState(() {
+                        selectedMenu = menu;
+                      });
+                    },
+                    riveonInit: (artboard) {
+                      StateMachineController controller =
+                          RiveUtils.getRiveController(artboard,
+                              stateMachineName: menu.stateMachineName); // bakcaz
+            
+                      menu.input = controller.findSMI('active') as SMIBool;
+                    },
+                    isActive: selectedMenu == menu,
+                  ),
+                ),
+                SizedBox(height: 5),
+                GestureDetector(
+                  onTap: () async {
+                    showDialog(
+                      context: context,
+                      barrierDismissible: false,
+                      builder: (BuildContext context) {
+                        return Center(
+                          child: CircularProgressIndicator(),
                         );
                       },
                     );
-                  },
-                  riveonInit: (artboard) {
-                    StateMachineController controller =
-                        RiveUtils.getRiveController(artboard,
-                            stateMachineName: menu.stateMachineName);
-                    menu.input = controller.findSMI('active') as SMIBool;
-                  },
-                  isActive: selectedMenu == menu,
-                ),
-              ),
-              _historyText(context),
-              ...sideMenu2.map(
-                (menu) => SideMenuTile(
-                  menu: menu,
-                  press: () {
-                    menu.input!.change(true);
-                    Future.delayed(Duration(milliseconds: 750), () {
-                      menu.input!.change(false);
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) {
-                          if (menu.title == 'Settings') {
-                            return LanguageSelection();
-                          }
-                          return FavWidget();
-                        }),
-                      );
-                    });
-                    setState(() {
-                      selectedMenu = menu;
-                    });
-                  },
-                  riveonInit: (artboard) {
-                    StateMachineController controller =
-                        RiveUtils.getRiveController(artboard,
-                            stateMachineName: menu.stateMachineName); // bakcaz
-
-                    menu.input = controller.findSMI('active') as SMIBool;
-                  },
-                  isActive: selectedMenu == menu,
-                ),
-              ),
-              SizedBox(height: 5),
-              GestureDetector(
-                onTap: () async {
-                  showDialog(
-                    context: context,
-                    barrierDismissible: false,
-                    builder: (BuildContext context) {
-                      return Center(
-                        child: CircularProgressIndicator(),
-                      );
-                    },
-                  );
-
-                  signOut();
-
-                  await Future.delayed(Duration(milliseconds: 750));
-
-                  Navigator.pop(context);
-
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => OnBoardingScreen(),
-                    ),
-                  );
-                },
-                child: Row(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(left: 13),
-                      child: IconButton(
-                        color: Colors.white,
-                        onPressed: () {},
-                        icon: Icon(Icons.logout),
+            
+                    signOut();
+            
+                    await Future.delayed(Duration(milliseconds: 750));
+            
+                    Navigator.pop(context);
+            
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => OnBoardingScreen(),
                       ),
-                    ),
-                    SizedBox(width: 0),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 15),
-                      child: Text(
-                        'Logout',
-                        style: TextStyle(
+                    );
+                  },
+                  child: Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(left: 13),
+                        child: IconButton(
                           color: Colors.white,
-                          fontSize: 18,
+                          onPressed: () {},
+                          icon: Icon(Icons.logout),
                         ),
                       ),
-                    ),
-                  ],
+                      SizedBox(width: 0),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 15),
+                        child: Text(
+                          'Logout',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 18,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

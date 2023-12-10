@@ -14,10 +14,11 @@ class InputTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 36, vertical: 8),
       child: SizedBox(
-        height: 50,
+        height: 60,
         child: Material(
           elevation: 8,
           shadowColor: Colors.black87,

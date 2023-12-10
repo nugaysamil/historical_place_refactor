@@ -60,9 +60,7 @@ class _ProfileEditState extends State<ProfileEditUpdate> {
                 context,
                 MaterialPageRoute(
                     builder: (context) => CustomMarkerInfoWindow(
-                          markers: markers,
-                          customInfoWindowController:
-                              customInfoWindowController,
+                        
                         )));
           },
         ),
