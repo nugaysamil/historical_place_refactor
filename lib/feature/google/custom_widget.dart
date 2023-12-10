@@ -1,12 +1,9 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:rive/rive.dart';
-
-import 'package:mapsuygulama/feature/google/marker_list_widget.dart';
+import 'package:mapsuygulama/feature/google/google_maps_widget.dart';
 import 'package:mapsuygulama/feature/side/side_menu_widget.dart';
 import 'package:mapsuygulama/product/data_provider/auth_provider.dart';
 import 'package:mapsuygulama/product/utils/const/string_const.dart';
@@ -27,7 +24,6 @@ class _CustomConsumerWidgetState extends ConsumerState<CustomMarkerInfoWindow>
   late Animation<double> animation;
   late Animation<double> scaleAnimation;
 
-  double zoomVal = 5.0;
   @override
   void initState() {
     _animationController = AnimationController(
@@ -82,25 +78,29 @@ class _CustomConsumerWidgetState extends ConsumerState<CustomMarkerInfoWindow>
             child: SafeArea(
               child: Visibility(
                 visible: authState.asData?.value != null,
-                child: FloatingActionButton(
-                  backgroundColor: Colors.white,
-                  onPressed: () {
-                    if (isSideMenuClosed) {
-                      _animationController.forward();
-                    } else {
-                      _animationController.reverse();
-                    }
-                    setState(() {
-                      isSideMenuClosed = !isSideMenuClosed;
-                    });
-                  },
-                  child: SizedBox(
-                    width: 20,
-                    height: 20,
-                    child: RiveAnimation.asset(
-                      rivIconsAssetDir,
-                      artboard: artBoard,
-                      onInit: (riveOnInit) {},
+                child: Container(
+                  margin: EdgeInsets.only(
+                      top: calculateVerticalShift(context, 0.02)),
+                  child: FloatingActionButton(
+                    backgroundColor: Colors.white,
+                    onPressed: () {
+                      if (isSideMenuClosed) {
+                        _animationController.forward();
+                      } else {
+                        _animationController.reverse();
+                      }
+                      setState(() {
+                        isSideMenuClosed = !isSideMenuClosed;
+                      });
+                    },
+                    child: SizedBox(
+                      width: 20,
+                      height: 20,
+                      child: RiveAnimation.asset(
+                        rivIconsAssetDir,
+                        artboard: artBoard,
+                        onInit: (riveOnInit) {},
+                      ),
                     ),
                   ),
                 ),
@@ -112,28 +112,7 @@ class _CustomConsumerWidgetState extends ConsumerState<CustomMarkerInfoWindow>
     );
   }
 
-  FloatingActionButton buttonWidget() {
-    return FloatingActionButton(
-      backgroundColor: Colors.white,
-      onPressed: () {
-        if (isSideMenuClosed) {
-          _animationController.forward();
-        } else {
-          _animationController.reverse();
-        }
-        setState(() {
-          isSideMenuClosed = !isSideMenuClosed;
-        });
-      },
-      child: SizedBox(
-        width: 20,
-        height: 20,
-        child: RiveAnimation.asset(
-          rivIconsAssetDir,
-          artboard: artBoard,
-          onInit: (riveOnInit) {},
-        ),
-      ),
-    );
+  double calculateVerticalShift(BuildContext context, double percentage) {
+    return MediaQuery.of(context).size.height * percentage;
   }
 }

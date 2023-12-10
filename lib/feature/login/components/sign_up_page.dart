@@ -12,7 +12,7 @@ import 'package:mapsuygulama/feature/repository/email_validator.dart';
 import 'package:mapsuygulama/feature/profile/companenets/profile_edit.dart';
 import 'package:mapsuygulama/feature/login/controller/login_controller.dart';
 import 'package:mapsuygulama/feature/login/controller/login_state.dart';
-import 'package:mapsuygulama/feature/google/google.dart';
+import 'package:mapsuygulama/feature/google/custom_widget.dart';
 import 'package:mapsuygulama/feature/login/widgets/or_divider.dart';
 import 'package:mapsuygulama/product/utils/const/color_const.dart';
 import '../widgets/text/widget_bottom_text.dart';
@@ -66,32 +66,29 @@ class _LoginContentState extends ConsumerState<LoginContent>
   }
 
    Widget signInWithGoogleLogo() {
-    return Padding(
-      padding: const EdgeInsets.only(left: 0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const SizedBox(width: 20),
-          ElevatedButton(
-            style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.all(Colors.transparent),
-              shadowColor: MaterialStateProperty.all(Colors.transparent),
-              elevation: MaterialStateProperty.all(0),
-            ),
-            onPressed: () async {
-              final userCredential = await AuthService().signInWithGoogle();
-
-              if (userCredential != null) {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => ProfileEdit()),
-                );
-              }
-            },
-            child: Image.asset('assets/images/google.png'),
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        const SizedBox(width: 20),
+        ElevatedButton(
+          style: ButtonStyle(
+            backgroundColor: MaterialStateProperty.all(Colors.transparent),
+            shadowColor: MaterialStateProperty.all(Colors.transparent),
+            elevation: MaterialStateProperty.all(0),
           ),
-        ],
-      ),
+          onPressed: () async {
+            final userCredential = await AuthService().signInWithGoogle();
+
+            if (userCredential != null) {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => ProfileEdit()),
+              );
+            }
+          },
+          child: Image.asset('assets/images/google.png'),
+        ),
+      ],
     );
   }
 

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:mapsuygulama/feature/google/google.dart';
+import 'package:mapsuygulama/feature/google/custom_widget.dart';
+import 'package:mapsuygulama/feature/login/controller/auth_checker.dart';
 import 'package:mapsuygulama/feature/slack/screen/onbording_screen.dart';
 import 'package:mapsuygulama/product/initialize/product_localization.dart';
 import 'product/initialize/app_theme.dart';
@@ -28,6 +29,6 @@ class MyApp extends StatelessWidget {
         locale: context.locale,
         debugShowCheckedModeBanner: false,
         theme: AppTheme.getAppTheme(context),
-        home: CustomMarkerInfoWindow()); 
+        home: OnBoardingScreen()); 
   }
 }

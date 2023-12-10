@@ -6,7 +6,7 @@ import 'package:mapsuygulama/feature/profile/companenets/text/profile_edit_text.
 import 'package:mapsuygulama/product/database/database_service.dart';
 import 'package:mapsuygulama/product/database/user_data_service.dart';
 import 'package:mapsuygulama/feature/profile/companenets/text/profile_edit_input_text.dart';
-import 'package:mapsuygulama/feature/google/google.dart';
+import 'package:mapsuygulama/feature/google/custom_widget.dart';
 import 'package:mapsuygulama/product/utils/const/string_const.dart';
 import 'package:mapsuygulama/product/utils/image_util.dart';
 

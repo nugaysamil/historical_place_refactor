@@ -8,7 +8,7 @@ class OrDivider extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 130, vertical: 15),
+      padding: const EdgeInsets.symmetric(horizontal: 130),
       child: Row(
         children: [
           Flexible(
@@ -18,7 +18,7 @@ class OrDivider extends StatelessWidget {
             ),
           ),
           const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16),
+            padding: EdgeInsets.symmetric(horizontal: 15),
             child: Text(
               'or',
               style: TextStyle(

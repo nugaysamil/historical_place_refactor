@@ -44,6 +44,7 @@
   "selected_photo": "Lütfen bir fotoğraf seçin.",
   "language_change": "Dil Değişti",
   "language_change_description": "Dil başarılı bir şekilde değişti.",
-  "continue": "Devam et"
+  "continue": "Devam et",
+  "destination" : "Bir varış noktası arayın"
 
 }

@@ -44,6 +44,8 @@
   "about_me": "About Me",
   "language_change": "Language Change",
   "language_change_description": "Language changed successfully",
-  "continue": "Continue"
+  "continue": "Continue",
+    "destination" : "Search for a destination"
+
 
 }

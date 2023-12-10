@@ -1,9 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:async';
-import 'dart:io';
 
 import 'package:easy_localization/easy_localization.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -12,7 +10,6 @@ import 'package:google_maps_webservice/places.dart';
 
 import 'package:mapsuygulama/animations/animation_widget.dart';
 import 'package:mapsuygulama/feature/google/description/description_widget.dart';
-import 'package:mapsuygulama/feature/google/marker_list.dart';
 import 'package:mapsuygulama/product/data_provider/api_provider.dart';
 import 'package:mapsuygulama/product/data_provider/auth_provider.dart';
 import 'package:mapsuygulama/product/helper/location_service.dart';
@@ -62,6 +59,7 @@ class _GoogleConsumerWidgetState extends ConsumerState<GoogleMapsWidget> {
   @override
   Widget build(BuildContext context) {
     final authState = ref.watch(authStateProvider);
+    //print(authState);
     final markerModel = ref.watch(singleUserDataProvider);
     List<MarkerModel> markers = [];
 
@@ -129,6 +127,10 @@ class _GoogleConsumerWidgetState extends ConsumerState<GoogleMapsWidget> {
       );
     }
 
+    double calculateVerticalShift(BuildContext context, double percentage) {
+      return MediaQuery.of(context).size.height * percentage;
+    }
+
     return Stack(
       children: [
         markerModel.when(
@@ -188,11 +190,16 @@ class _GoogleConsumerWidgetState extends ConsumerState<GoogleMapsWidget> {
         ),
         SafeArea(
           child: Row(
+            mainAxisAlignment: authState.asData?.value == null
+                ? MainAxisAlignment.center
+                : MainAxisAlignment.end,
             children: [
               if (isSideMenuClosed)
                 Container(
-                  width: authState.asData?.value != null ? 300 : 350,
+                  width: authState.asData?.value != null ? 330 : 350,
                   height: 50,
+                  margin: EdgeInsets.only(
+                      top: calculateVerticalShift(context, 0.03)),
                   padding: EdgeInsets.only(left: 15),
                   decoration: BoxDecoration(
                     color: Colors.white,
@@ -227,7 +234,7 @@ class _GoogleConsumerWidgetState extends ConsumerState<GoogleMapsWidget> {
                       color: Colors.black,
                     ),
                     decoration: InputDecoration(
-                      hintText: 'Search for a destination',
+                      hintText: 'destination'.tr(),
                       hintStyle: GoogleFonts.poppins(fontSize: 16),
                       suffixIcon: Padding(
                         padding: EdgeInsets.only(left: 10),
@@ -243,35 +250,32 @@ class _GoogleConsumerWidgetState extends ConsumerState<GoogleMapsWidget> {
             ],
           ),
         ),
-        /* Padding(
-          padding: const EdgeInsets.only(top: 120),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              if (isSideMenuClosed)
-                ZoomInButton(
-                  icon: Icons.zoom_in,
-                  onPressed: () {
-                    final zoomUtility = ZoomUtility(_controller);
+        Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            if (isSideMenuClosed)
+              ZoomInButton(
+                icon: Icons.zoom_in,
+                onPressed: () {
+                  final zoomUtility = ZoomUtility(_controller);
 
-                    zoomVal++;
-                    zoomUtility.zoom(zoomVal);
-                  },
-                ),
-              SizedBox(height: 15),
-              if (isSideMenuClosed)
-                ZoomInButton(
-                  icon: Icons.zoom_out,
-                  onPressed: () {
-                    final zoomUtility = ZoomUtility(_controller);
+                  zoomVal++;
+                  zoomUtility.zoom(zoomVal);
+                },
+              ),
+            SizedBox(height: 15),
+            if (isSideMenuClosed)
+              ZoomInButton(
+                icon: Icons.zoom_out,
+                onPressed: () {
+                  final zoomUtility = ZoomUtility(_controller);
 
-                    zoomVal--;
-                    zoomUtility.zoom(zoomVal);
-                  },
-                ),
-            ],
-          ),
-        ) */
+                  zoomVal--;
+                  zoomUtility.zoom(zoomVal);
+                },
+              ),
+          ],
+        ),
       ],
     );
   }

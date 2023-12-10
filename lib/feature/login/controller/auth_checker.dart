@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:mapsuygulama/feature/slack/screen/onbording_screen.dart';
 import 'package:mapsuygulama/product/data_provider/auth_provider.dart';
-import 'package:mapsuygulama/feature/google/google.dart';
-import 'package:mapsuygulama/feature/slack/screen/slack_screen.dart';
+import 'package:mapsuygulama/feature/google/custom_widget.dart';
 
 
 class AuthChecker extends ConsumerWidget {
@@ -16,14 +16,12 @@ class AuthChecker extends ConsumerWidget {
     return _authState.when(
       data: (user) {
         if (user != null) {
-          return CustomMarkerInfoWindow(
-         
-              );
+          return CustomMarkerInfoWindow();
         } else {
-          return SlackScreen();
+          return OnBoardingScreen();
         }
       },
-      error: (e, trace) => const SlackScreen(),
+      error: (e, trace) => const OnBoardingScreen(),
       loading: () => const CircularProgressIndicator(),
     );
   }

@@ -7,7 +7,7 @@ import 'package:mapsuygulama/feature/profile/profile_update/profile_update_widge
 import 'package:mapsuygulama/feature/profile/profile_update/settings_widget.dart';
 import 'package:mapsuygulama/feature/slack/screen/onbording_screen.dart';
 import 'package:rive/rive.dart';
-import 'package:mapsuygulama/feature/google/google.dart';
+import 'package:mapsuygulama/feature/google/custom_widget.dart';
 import 'package:mapsuygulama/product/models/rive_asset.dart';
 import 'package:mapsuygulama/product/helper/rive_utils_helper.dart';
 import 'component/info_card.dart';
