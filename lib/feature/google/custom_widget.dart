@@ -80,7 +80,7 @@ class _CustomConsumerWidgetState extends ConsumerState<CustomMarkerInfoWindow>
                 visible: authState.asData?.value != null,
                 child: Container(
                   margin: EdgeInsets.only(
-                      top: calculateVerticalShift(context, 0.02)),
+                      top: calculateVerticalShift(context, 0.007)),
                   child: FloatingActionButton(
                     backgroundColor: Colors.white,
                     onPressed: () {

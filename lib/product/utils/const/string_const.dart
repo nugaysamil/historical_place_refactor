@@ -12,7 +12,6 @@ const welcomeBack = 'welcome_back';
 const email = 'Email';
 const password = 'password';
 const msgLogInSucces = 'Log In successful.';
-const login = 'Log In';
 const signUp = 'sign_up';
 const dontAccount = 'dont_account';
 const firebaseName = 'newhistorical-b4f75';

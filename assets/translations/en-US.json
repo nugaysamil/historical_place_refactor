@@ -45,7 +45,12 @@
   "language_change": "Language Change",
   "language_change_description": "Language changed successfully",
   "continue": "Continue",
-    "destination" : "Search for a destination"
-
+  "destination": "Search for a destination",
+  "without_membership": "Skip membership.",
+  "sign_up_correct": "Signup successful.",
+  "profile_edit": "Profile Edit",
+  "SAVE2": "SAVE",
+  "cancel": "CANCEL",
+    "data_saved_success" : "Data saved successfully"
 
 }

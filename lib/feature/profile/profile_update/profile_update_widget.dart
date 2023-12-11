@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -5,7 +6,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:mapsuygulama/product/database/database_service.dart';
 import 'package:mapsuygulama/product/database/user_data_service.dart';
 import 'package:mapsuygulama/feature/google/custom_widget.dart';
-
 
 class ProfileEditUpdate extends StatefulWidget {
   const ProfileEditUpdate({Key? key}) : super(key: key);
@@ -53,19 +53,26 @@ class _ProfileEditState extends State<ProfileEditUpdate> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
+        elevation: 0,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),
+          icon: Icon(
+            Icons.arrow_back,
+            color: Colors.black,
+          ),
           onPressed: () {
             Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => CustomMarkerInfoWindow(
-                        
-                        )));
+              context,
+              MaterialPageRoute(
+                builder: (context) => CustomMarkerInfoWindow(),
+              ),
+            );
           },
         ),
         backgroundColor: const Color.fromARGB(0, 81, 56, 56),
-        title: Text('Profile Edit'),
+        title: Text(
+          "profile_edit".tr(),
+          style: TextStyle(color: Colors.black),
+        ),
         actions: [],
       ),
       body: Container(
@@ -114,10 +121,12 @@ class _ProfileEditState extends State<ProfileEditUpdate> {
                             width: 1,
                             color: Colors.white,
                           ),
-                          color: Colors.blue.shade400,
+                          color: Colors.black,
                         ),
                         child: IconButton(
-                          icon: Icon(Icons.add_a_photo),
+                          icon: Icon(
+                            Icons.add_a_photo,
+                          ),
                           color: Colors.white,
                           onPressed: () async {
                             XFile? file = await getImage();
@@ -138,12 +147,12 @@ class _ProfileEditState extends State<ProfileEditUpdate> {
                 ),
               ),
               SizedBox(height: 30),
-              textFieldControllers(
-                  _nameController, 'Name', 'Name Giriniz', 'Name Boş Olamaz'),
-              textFieldControllers(_locationController, 'Location',
+              textFieldControllers(_nameController, 'name_surname'.tr(),
+                  'Name Giriniz', 'Name Boş Olamaz'),
+              textFieldControllers(_locationController, "location".tr(),
                   'Location Giriniz', 'Location Boş Olamaz'),
               textFieldControllers(
-                  _ageController, 'Age', 'Age Giriniz', 'Age boş olamaz'),
+                  _ageController, 'age'.tr(), 'Age Giriniz', 'Age boş olamaz'),
               SizedBox(height: 30),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -151,7 +160,7 @@ class _ProfileEditState extends State<ProfileEditUpdate> {
                   OutlinedButton(
                     onPressed: () {},
                     child: Text(
-                      'Cancel'.toUpperCase(),
+                      'cancel'.tr(),
                       style: TextStyle(
                         fontSize: 15,
                         letterSpacing: 2,
@@ -172,10 +181,29 @@ class _ProfileEditState extends State<ProfileEditUpdate> {
                         _ageController.text,
                         _locationController.text,
                         imageUrl!,
-                      );
+                      ).then((value) {
+                        // Show success message
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text("data_saved_success".tr()),
+                            duration: Duration(seconds: 2),
+                          ),
+                        );
+
+                        // Delay and then navigate to the next screen
+                        Future.delayed(
+                          Duration(seconds: 2),
+                          () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => CustomMarkerInfoWindow(),
+                            ),
+                          ),
+                        );
+                      });
                     },
                     child: Text(
-                      'save'.toUpperCase(),
+                      'SAVE2'.tr(),
                       style: TextStyle(
                         fontSize: 15,
                         letterSpacing: 2,
@@ -183,7 +211,7 @@ class _ProfileEditState extends State<ProfileEditUpdate> {
                       ),
                     ),
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.blue,
+                      backgroundColor: Colors.black,
                       padding: EdgeInsets.symmetric(horizontal: 50),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20),

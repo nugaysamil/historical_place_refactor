@@ -45,6 +45,12 @@
   "language_change": "Dil Değişti",
   "language_change_description": "Dil başarılı bir şekilde değişti.",
   "continue": "Devam et",
-  "destination" : "Bir varış noktası arayın"
+  "destination": "Bir varış noktası arayın",
+  "without_membership": "Üye olmadan devam et.",
+  "sign_up_correct": "Giriş başarılı.",
+  "profile_edit" : "Profile Düzenle",
+  "cancel": "İPTAL",
+  "SAVE2": "KAYDET",
+  "data_saved_success" : "Veri başarıyla kaydedildi"
 
 }

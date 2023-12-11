@@ -18,7 +18,7 @@ class InputTextField extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 36, vertical: 8),
       child: SizedBox(
-        height: 60,
+        height: 50,
         child: Material(
           elevation: 8,
           shadowColor: Colors.black87,

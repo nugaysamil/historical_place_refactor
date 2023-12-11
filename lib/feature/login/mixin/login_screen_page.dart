@@ -134,7 +134,7 @@ class _LoginContentState extends ConsumerState<LoginPage>
                         shadowColor: Colors.black87,
                       ),
                       child: Text(
-                        login,
+                        'login_in'.tr(),
                         style: const TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,

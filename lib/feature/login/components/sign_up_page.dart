@@ -69,7 +69,7 @@ class _LoginContentState extends ConsumerState<LoginContent>
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        const SizedBox(width: 20),
+       
         ElevatedButton(
           style: ButtonStyle(
             backgroundColor: MaterialStateProperty.all(Colors.transparent),
@@ -130,7 +130,7 @@ class _LoginContentState extends ConsumerState<LoginContent>
                       hint: 'confirm_password'.tr(),
                       iconData: Ionicons.refresh_outline),
                   signUpButton(
-                    'Sign Up',
+                    "sign_up".tr(),
                     () async {
                       if (_passwordController.text != _confirmController.text) {
                         ref.read(loginControllerProvider.notifier).state =
@@ -151,7 +151,7 @@ class _LoginContentState extends ConsumerState<LoginContent>
                                 .read(loginControllerProvider.notifier)
                                 .createUser(email, password);
                             Fluttertoast.showToast(
-                              msg: 'SigUp successful.',
+                              msg: "sign_up_correct".tr(),
                               toastLength: Toast.LENGTH_SHORT,
                             );
                             Future.delayed(
@@ -175,8 +175,23 @@ class _LoginContentState extends ConsumerState<LoginContent>
                       }
                     },
                   ),
-                  withoutUser(context),
+                  Center(
+                    child: BottomText(
+                      text2: "without_membership".tr(),
+                      onTapCallback: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => CustomMarkerInfoWindow(),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
                   OrDivider(),
+                  SizedBox(
+                    height: 10,
+                  ),
                   signInWithGoogleLogo(),
                 ],
               ),
@@ -203,23 +218,6 @@ class _LoginContentState extends ConsumerState<LoginContent>
           text: 'already_account'.tr(),
           text2: 'login_in'.tr(),
         ),
-      ),
-    );
-  }
-
-  Center withoutUser(BuildContext context) {
-    return Center(
-      child: BottomText(
-        text2: 'Üye olmadan devam et.',
-        onTapCallback: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => CustomMarkerInfoWindow(
-              ),
-            ),
-          );
-        },
       ),
     );
   }

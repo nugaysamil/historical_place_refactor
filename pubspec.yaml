@@ -40,6 +40,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
+  flutter_launcher_icons: "^0.13.1"
   firebase_core: ^2.24.0
   firebase_auth: ^4.15.0
   custom_info_window: ^1.0.1
@@ -51,6 +52,22 @@ dev_dependencies:
   firebase_storage: ^11.5.3
   cloud_firestore: ^4.13.3
   flutter_google_places: ^0.3.0
+
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/play_store.png"
+  min_sdk_android: 21 # android min sdk min:16, default 21
+ 
+
+
+
+
+
+
+    
+
 
 flutter:
   fonts:

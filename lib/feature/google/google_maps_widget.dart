@@ -130,6 +130,7 @@ class _GoogleConsumerWidgetState extends ConsumerState<GoogleMapsWidget> {
     double calculateVerticalShift(BuildContext context, double percentage) {
       return MediaQuery.of(context).size.height * percentage;
     }
+    double screenWidth = MediaQuery.of(context).size.width;
 
     return Stack(
       children: [
@@ -188,6 +189,7 @@ class _GoogleConsumerWidgetState extends ConsumerState<GoogleMapsWidget> {
             return Center(child: CircularProgressIndicator());
           },
         ),
+        
         SafeArea(
           child: Row(
             mainAxisAlignment: authState.asData?.value == null
@@ -196,10 +198,10 @@ class _GoogleConsumerWidgetState extends ConsumerState<GoogleMapsWidget> {
             children: [
               if (isSideMenuClosed)
                 Container(
-                  width: authState.asData?.value != null ? 330 : 350,
+                  width: authState.asData?.value != null ? 325 : 350,
                   height: 50,
                   margin: EdgeInsets.only(
-                      top: calculateVerticalShift(context, 0.03)),
+                      top: calculateVerticalShift(context, 0.01)),
                   padding: EdgeInsets.only(left: 15),
                   decoration: BoxDecoration(
                     color: Colors.white,
@@ -223,7 +225,7 @@ class _GoogleConsumerWidgetState extends ConsumerState<GoogleMapsWidget> {
                           GoogleMapsPlaces(apiKey: kGoogleApiKey),
                           _mapController);
                       mapUtility.goToPlace(_selectedPlace.placeId!);
-
+          
                       setState(() {
                         showSourceField = true;
                       });
@@ -250,6 +252,7 @@ class _GoogleConsumerWidgetState extends ConsumerState<GoogleMapsWidget> {
             ],
           ),
         ),
+        
         Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [

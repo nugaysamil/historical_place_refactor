@@ -47,8 +47,8 @@ class _SideMenuState extends State<SideMenu> {
                       setState(() {
                         selectedMenu = menu;
                       });
-                      SizedBox(height: 8,width: 8);
-            
+                      SizedBox(height: 8, width: 8);
+
                       Future.delayed(
                         Duration(milliseconds: 750),
                         () {
@@ -115,14 +115,18 @@ class _SideMenuState extends State<SideMenu> {
                     riveonInit: (artboard) {
                       StateMachineController controller =
                           RiveUtils.getRiveController(artboard,
-                              stateMachineName: menu.stateMachineName); // bakcaz
-            
+                              stateMachineName:
+                                  menu.stateMachineName); // bakcaz
+
                       menu.input = controller.findSMI('active') as SMIBool;
                     },
                     isActive: selectedMenu == menu,
                   ),
                 ),
-                SizedBox(height: 5),
+                Padding(
+                  padding: const EdgeInsets.only(left: 24),
+                  child: Divider(color: Colors.white24, height: 5),
+                ),
                 GestureDetector(
                   onTap: () async {
                     showDialog(
@@ -134,13 +138,13 @@ class _SideMenuState extends State<SideMenu> {
                         );
                       },
                     );
-            
+
                     signOut();
-            
+
                     await Future.delayed(Duration(milliseconds: 750));
-            
+
                     Navigator.pop(context);
-            
+
                     Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -161,17 +165,44 @@ class _SideMenuState extends State<SideMenu> {
                       SizedBox(width: 0),
                       Padding(
                         padding: const EdgeInsets.only(left: 15),
-                        child: Text(
-                          'Logout',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 18,
+                        child: InkWell(
+                          onTap: () {
+                            // Aynı işlevi gerçekleştir
+                            showDialog(
+                              context: context,
+                              barrierDismissible: false,
+                              builder: (BuildContext context) {
+                                return Center(
+                                  child: CircularProgressIndicator(),
+                                );
+                              },
+                            );
+
+                            signOut();
+
+                            Future.delayed(Duration(milliseconds: 750), () {
+                              Navigator.pop(context);
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => OnBoardingScreen(),
+                                ),
+                              );
+                            });
+                          },
+                          child: Text(
+                            'Logout',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 18,
+                            ),
                           ),
                         ),
                       ),
                     ],
                   ),
                 ),
+
               ],
             ),
           ),
