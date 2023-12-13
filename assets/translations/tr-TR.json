@@ -4,10 +4,10 @@
   "about_us": "Hakkımızda",
   "abouts_us_description": "Bu uygulamada Türkiye'deki 144 tarihi yerin konumları ile birlikte bilgileri bulunmaktadır. O konuma kolayca ulaşabilmeniz için bulunduğunuz konuma göre yol tarifi verir.",
   "create_account": "Oturum Aç",
-  "create_account_description": "E-posta adresinizi veya google hesabınızı kullanarak kayıt olabilirsiniz.",
+  "create_account_description": "E-postanızı veya Google hesabınızı kullanarak kaydolabilirsiniz. Dilerseniz kayıt olmadan da devam edebilirsiniz.",
   "password": "Şifre",
   "confirm_password": "Şifrenizi Onaylayın",
-  "sign_up": "Kayıt Ol",
+  "log_in": "Kayıt Ol",
   "already_account": "Zaten hesabınız var mı?",
   "welcome_back": "Tekrar\nHoşgeldiniz!",
   "login_in": "Giriş Yap",
@@ -48,9 +48,11 @@
   "destination": "Bir varış noktası arayın",
   "without_membership": "Üye olmadan devam et.",
   "sign_up_correct": "Giriş başarılı.",
-  "profile_edit" : "Profile Düzenle",
+  "profile_edit": "Profile Düzenle",
   "cancel": "İPTAL",
   "SAVE2": "KAYDET",
-  "data_saved_success" : "Veri başarıyla kaydedildi"
-
+  "data_saved_success": "Veri başarıyla kaydedildi",
+  "sign_up": "Giriş Yap",
+  "register": "Kayıt Ol",
+  "open_google_maps": "Google Maps'te Aç"
 }

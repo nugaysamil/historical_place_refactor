@@ -5,7 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ionicons/ionicons.dart';
-import 'package:mapsuygulama/feature/login/components/login_screen_components.dart';
+import 'package:mapsuygulama/feature/login/components/google_maps_widget.dart';
+import 'package:mapsuygulama/feature/login/components/log_in_components.dart';
 import 'package:mapsuygulama/feature/login/widgets/text_field/widget_text_field.dart';
 import 'package:mapsuygulama/feature/login/controller/login_controller.dart';
 import 'package:mapsuygulama/feature/login/controller/login_state.dart';
@@ -134,7 +135,7 @@ class _LoginContentState extends ConsumerState<LoginPage>
                         shadowColor: Colors.black87,
                       ),
                       child: Text(
-                        'login_in'.tr(),
+                        "sign_up".tr(),
                         style: const TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
@@ -162,10 +163,10 @@ class _LoginContentState extends ConsumerState<LoginPage>
           onTapCallback: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => LoginScreenComponents()),
+              MaterialPageRoute(builder: (context) => LoginInComponent()),
             );
           },
-          text2: signUp.tr(),
+          text2: "log_in".tr(),
           text: dontAccount.tr(),
         ),
       ),

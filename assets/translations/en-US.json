@@ -1,19 +1,20 @@
 {
   "dil": "Choose Language",
-  "dil_description": "Select the language you want to use.",
+  "dil_description": "You can select the language you want to use.",
   "about_us": "About US",
   "abouts_us_description": "In this application, there is information about 144 historical places in Turkey together with their locations. It gives you directions according to your location to reach that location easily.",
   "create_account": "Create\nAccount",
-  "create_account_description": "You can sign up using your email or google account.",
+  "create_account_description": "You can sign up using your email or Google account. If you prefer, you can continue without registering.",
   "password": "Password",
   "confirm_password": "Confirm Password",
   "sign_up": "Sign Up",
   "already_account": "Already have an account?",
-  "login_in": "Login In",
+  "log_in": "Log In",
   "forgot_password": "Forgot Password?",
   "dont_account": "Don't have an account?",
   "welcome_back": "Welcome\nBack!",
   "or": "or",
+  "login_in": "Log In",
   "name_surname": "Name",
   "location": "Location",
   "age": "Age",
@@ -51,6 +52,8 @@
   "profile_edit": "Profile Edit",
   "SAVE2": "SAVE",
   "cancel": "CANCEL",
-    "data_saved_success" : "Data saved successfully"
+  "data_saved_success": "Data saved successfully",
 
+  "register": "Register",
+  "open_google_maps": "Open in Google Maps"
 }

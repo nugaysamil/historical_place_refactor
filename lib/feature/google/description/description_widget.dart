@@ -238,16 +238,24 @@ class DescriptionDetails extends ConsumerWidget {
                     ),
                   ),
                 ),
-              ElevatedButton(
-                onPressed: () {
-                  launch(url);
-                },
-                child: Text('Google Maps\'te Aç'),
-              )
+              Container(
+                margin: EdgeInsets.only(bottom: 50),
+                child: ElevatedButton(
+                  onPressed: () {
+                    launch(url);
+                  },
+                  child: Text("open_google_maps".tr()),
+                ),
+              ),
+             
             ],
+            
           ),
+          
         ),
+        
       ),
+      
     );
   }
 }

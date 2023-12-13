@@ -130,7 +130,7 @@ class _LoginContentState extends ConsumerState<LoginContent>
                       hint: 'confirm_password'.tr(),
                       iconData: Ionicons.refresh_outline),
                   signUpButton(
-                    "sign_up".tr(),
+                    "log_in".tr(),
                     () async {
                       if (_passwordController.text != _confirmController.text) {
                         ref.read(loginControllerProvider.notifier).state =
@@ -216,7 +216,7 @@ class _LoginContentState extends ConsumerState<LoginContent>
             );
           },
           text: 'already_account'.tr(),
-          text2: 'login_in'.tr(),
+          text2: "sign_up".tr(),
         ),
       ),
     );

@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
-
+import 'package:mapsuygulama/feature/login/components/sign_up_components.dart';
+import 'package:mapsuygulama/feature/login/components/sign_up_page.dart';
+import 'package:mapsuygulama/feature/login/mixin/login_screen_page.dart';
 import 'dart:math' as math;
 
-import '../widgets/center_widget.dart/center_widget.dart';
-import 'sign_up_page.dart';
+import 'package:mapsuygulama/feature/login/widgets/center_widget.dart/center_widget.dart';
 
-class LoginScreenComponents extends StatefulWidget {
-  const LoginScreenComponents({super.key});
+class LoginInComponent extends StatefulWidget {
+  const LoginInComponent({super.key});
 
   @override
-  State<LoginScreenComponents> createState() => _LoginScreenState();
+  State<LoginInComponent> createState() => _SignUpComponentsState();
 }
 
-class _LoginScreenState extends State<LoginScreenComponents> {
+class _SignUpComponentsState extends State<LoginInComponent> {
   Widget topWidget(double screenWidth) {
     return Transform.rotate(
       angle: -35 * math.pi / 180,
