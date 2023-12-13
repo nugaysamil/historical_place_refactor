@@ -54,5 +54,7 @@
   "data_saved_success": "Veri başarıyla kaydedildi",
   "sign_up": "Giriş Yap",
   "register": "Kayıt Ol",
-  "open_google_maps": "Google Maps'te Aç"
+  "open_google_maps": "Google Maps'te Aç",
+    "required_login" : "Favoriye almak istiyorsanız, giriş yapmanız gerekmektedir."
+
 }

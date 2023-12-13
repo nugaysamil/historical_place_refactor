@@ -87,10 +87,16 @@ class _GoogleConsumerWidgetState extends ConsumerState<GoogleMapsWidget> {
                           SizedBox(
                             height: 200,
                             width: 200,
-                            child: Image.network(
-                              placeUrl + myData['image'].toString(),
-                            ),
+                            child: myData['image'] != null &&
+                                    myData['image'].toString().isNotEmpty
+                                ? Image.network(
+                                    placeUrl + myData['image'].toString())
+                                : myData['error'] != null
+                                    ? Text('Hata: ${myData['error']}')
+                                    : Container(),
                           ),
+
+
                           SizedBox(height: 15),
                           Text(
                             markerModel.name,

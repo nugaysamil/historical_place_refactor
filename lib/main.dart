@@ -31,6 +31,6 @@ class MyApp extends StatelessWidget {
         locale: context.locale,
         debugShowCheckedModeBanner: false,
         theme: AppTheme.getAppTheme(context),
-        home: OnBoardingScreen()); 
+        home: CustomMarkerInfoWindow()); 
   }
 }

@@ -55,5 +55,6 @@
   "data_saved_success": "Data saved successfully",
 
   "register": "Register",
-  "open_google_maps": "Open in Google Maps"
+  "open_google_maps": "Open in Google Maps",
+  "required_login": "If you want to favorite it, you must log in."
 }

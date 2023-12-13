@@ -47,7 +47,7 @@ class DescriptionDetails extends ConsumerWidget {
               color: Colors.white,
             ),
           ),
-          elevation: 1,
+          elevation: 0,
           centerTitle: true,
           backgroundColor: Colors.black,
           title: Text(
@@ -241,6 +241,13 @@ class DescriptionDetails extends ConsumerWidget {
               Container(
                 margin: EdgeInsets.only(bottom: 50),
                 child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    primary: Colors.black,
+                    onPrimary: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5.0),
+                    ),
+                  ),
                   onPressed: () {
                     launch(url);
                   },

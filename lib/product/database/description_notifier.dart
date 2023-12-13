@@ -1,6 +1,9 @@
+import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 import '../enums/firebase_collections_enum.dart';
 import '../models/favorite_models.dart';
@@ -68,7 +71,14 @@ class FavoritesStateNotifier extends StateNotifier<List<Favorite>> {
 
       print('Yazıldı');
     } else {
-      print('Kullanıcı oturumu açmamış.');
+      Fluttertoast.showToast(
+        msg: "required_login".tr(),
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIosWeb: 3,
+        backgroundColor: Colors.black,
+        textColor: Colors.white,
+      );
     }
   }
 
