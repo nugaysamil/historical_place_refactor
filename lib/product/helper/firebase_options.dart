@@ -67,7 +67,7 @@ class DefaultFirebaseOptions {
     projectId: 'newhistorical-b4f75',
     storageBucket: 'newhistorical-b4f75.appspot.com',
     iosClientId: '205275922876-8qmrctl7okavfhpham2i7cp80110mh11.apps.googleusercontent.com',
-    iosBundleId: 'com.example.mapsuygulama',
+    iosBundleId: 'com.samil_nugay.mapsuygulama',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
@@ -77,6 +77,6 @@ class DefaultFirebaseOptions {
     projectId: 'newhistorical-b4f75',
     storageBucket: 'newhistorical-b4f75.appspot.com',
     iosClientId: '205275922876-8qmrctl7okavfhpham2i7cp80110mh11.apps.googleusercontent.com',
-    iosBundleId: 'com.example.mapsuygulama',
+    iosBundleId: 'com.samil_nugay.mapsuygulama',
   );
 }

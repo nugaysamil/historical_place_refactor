@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class InputTextField extends StatelessWidget {
   final TextEditingController textController;
@@ -25,6 +26,7 @@ class InputTextField extends StatelessWidget {
           color: Colors.transparent,
           borderRadius: BorderRadius.circular(30),
           child: TextField(
+            keyboardType: TextInputType.text,
             controller: textController,
             textAlignVertical: TextAlignVertical.bottom,
             decoration: InputDecoration(

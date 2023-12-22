@@ -149,7 +149,9 @@ class _GoogleConsumerWidgetState extends ConsumerState<GoogleMapsWidget> {
             print(markers.length);
 
             return GoogleMap(
-              myLocationButtonEnabled: true,
+        
+              zoomControlsEnabled: false,
+              myLocationButtonEnabled: false,
               myLocationEnabled: true,
               onMapCreated: (controller) async {
                 setState(() {});

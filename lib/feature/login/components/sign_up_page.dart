@@ -2,6 +2,7 @@
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ionicons/ionicons.dart';
@@ -65,11 +66,10 @@ class _LoginContentState extends ConsumerState<LoginContent>
     );
   }
 
-   Widget signInWithGoogleLogo() {
+  Widget signInWithGoogleLogo() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-       
         ElevatedButton(
           style: ButtonStyle(
             backgroundColor: MaterialStateProperty.all(Colors.transparent),
@@ -80,10 +80,13 @@ class _LoginContentState extends ConsumerState<LoginContent>
             final userCredential = await AuthService().signInWithGoogle();
 
             if (userCredential != null) {
+              print('AAAAAA' + userCredential.user!.displayName!);
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => ProfileEdit()),
               );
+            } else {
+              print('errrrrrror');
             }
           },
           child: Image.asset('assets/images/google.png'),
@@ -102,101 +105,100 @@ class _LoginContentState extends ConsumerState<LoginContent>
     }));
     return Stack(
       children: [
-        Positioned(
-          top: 136,
-          left: 35,
-          child: TopText(
-            topText: 'create_account'.tr(),
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(top: 100),
-          child: Stack(
-            children: [
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  InputTextField(
-                      textController: _emailController,
-                      hint: 'Email',
-                      iconData: Ionicons.mail_outline),
-                  PasswordInputField(
-                      textController: _passwordController,
-                      hint: 'password'.tr(),
-                      iconData: Ionicons.lock_closed_outline),
-                  PasswordInputField(
-                      textController: _confirmController,
-                      hint: 'confirm_password'.tr(),
-                      iconData: Ionicons.refresh_outline),
-                  signUpButton(
-                    "log_in".tr(),
-                    () async {
-                      if (_passwordController.text != _confirmController.text) {
-                        ref.read(loginControllerProvider.notifier).state =
-                            LoginStateError('Please enter email and password.');
-                      } else {
-                        final email = _emailController.text;
-                        final password = _passwordController.text;
-                        try {
-                          final signInMethods =
-                              await EmailValidator.fetchSignInMethodsForEmail(
-                                  email);
-                          if (signInMethods.isNotEmpty) {
-                            ref.read(loginControllerProvider.notifier).state =
-                                LoginStateError(
-                                    'E-posta adresi zaten kullanımda.');
-                          } else {
-                            ref
-                                .read(loginControllerProvider.notifier)
-                                .createUser(email, password);
-                            Fluttertoast.showToast(
-                              msg: "sign_up_correct".tr(),
-                              toastLength: Toast.LENGTH_SHORT,
-                            );
-                            Future.delayed(
-                              Duration(milliseconds: 700),
-                              () {
-                                _emailController.clear();
-                                _passwordController.clear();
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => ProfileEdit(),
-                                  ),
-                                );
-                              },
-                            );
-                          }
-                        } catch (error) {
+        Stack(
+          children: [
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 36),
+                  child: TopText(
+                    topText: 'create_account'.tr(),
+                  ),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                InputTextField(
+                    textController: _emailController,
+                    hint: 'Email',
+                    iconData: Ionicons.mail_outline),
+                PasswordInputField(
+                    textController: _passwordController,
+                    hint: 'password'.tr(),
+                    iconData: Ionicons.lock_closed_outline),
+                PasswordInputField(
+                    textController: _confirmController,
+                    hint: 'confirm_password'.tr(),
+                    iconData: Ionicons.refresh_outline),
+                signUpButton(
+                  "log_in".tr(),
+                  () async {
+                    if (_passwordController.text != _confirmController.text) {
+                      ref.read(loginControllerProvider.notifier).state =
+                          LoginStateError('Please enter email and password.');
+                    } else {
+                      final email = _emailController.text;
+                      final password = _passwordController.text;
+                      try {
+                        final signInMethods =
+                            await EmailValidator.fetchSignInMethodsForEmail(
+                                email);
+                        if (signInMethods.isNotEmpty) {
                           ref.read(loginControllerProvider.notifier).state =
-                              LoginStateError(error.toString());
+                              LoginStateError(
+                                  'E-posta adresi zaten kullanımda.');
+                        } else {
+                          ref
+                              .read(loginControllerProvider.notifier)
+                              .createUser(email, password);
+                          Fluttertoast.showToast(
+                            msg: "sign_up_correct".tr(),
+                            toastLength: Toast.LENGTH_SHORT,
+                          );
+                          Future.delayed(
+                            Duration(milliseconds: 700),
+                            () {
+                              _emailController.clear();
+                              _passwordController.clear();
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => ProfileEdit(),
+                                ),
+                              );
+                            },
+                          );
                         }
+                      } catch (error) {
+                        ref.read(loginControllerProvider.notifier).state =
+                            LoginStateError(error.toString());
                       }
+                    }
+                  },
+                ),
+                Center(
+                  child: BottomText(
+                    text2: "without_membership".tr(),
+                    onTapCallback: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => CustomMarkerInfoWindow(),
+                        ),
+                      );
                     },
                   ),
-                  Center(
-                    child: BottomText(
-                      text2: "without_membership".tr(),
-                      onTapCallback: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => CustomMarkerInfoWindow(),
-                          ),
-                        );
-                      },
-                    ),
-                  ),
-                  OrDivider(),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  signInWithGoogleLogo(),
-                ],
-              ),
-            ],
-          ),
+                ),
+                OrDivider(),
+                SizedBox(
+                  height: 10,
+                ),
+                signInWithGoogleLogo(),
+              ],
+            ),
+          ],
         ),
         alreadyAccount(context),
       ],

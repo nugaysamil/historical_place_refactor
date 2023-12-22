@@ -16,6 +16,7 @@ class _TopTextState extends State<TopText> {
   @override
   Widget build(BuildContext context) {
     return Text(
+      
       widget.topText,
       style: const TextStyle(
         color: Colors.black54,

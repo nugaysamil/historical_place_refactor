@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:205275922876:android:1837fae086ece207172bb9",
         "android_client_info": {
-          "package_name": "com.example.mapsuygulama"
+          "package_name": "com.samil_nugay.mapsuygulama"
         }
       },
       "oauth_client": [
@@ -34,7 +34,7 @@
               "client_id": "205275922876-8qmrctl7okavfhpham2i7cp80110mh11.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.example.mapsuygulama"
+                "bundle_id": "com.samil_nugay.mapsuygulama"
               }
             }
           ]
