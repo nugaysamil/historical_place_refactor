@@ -2,6 +2,7 @@ plugins {
    id "com.android.application"
    id "kotlin-android"
    id "dev.flutter.flutter-gradle-plugin"
+   id 'com.google.gms.google-services'
 }
 
 def localProperties = new Properties()
@@ -55,7 +56,7 @@ android {
         multiDexEnabled true
 
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId "com.samil_nugay.mapsuygulama"
+        applicationId "com.example.mapsuygulama"
         // You can update the following values to match your application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-build-configuration.
         minSdkVersion 23
@@ -90,6 +91,8 @@ dependencies {
     implementation "androidx.constraintlayout:constraintlayout:2.1.3"
     implementation 'com.google.android.gms:play-services-maps:18.2.0'
     implementation 'com.google.android.material:material:1.12.0-alpha02'
+    implementation platform('com.google.firebase:firebase-bom:32.7.0')
+    implementation 'com.google.firebase:firebase-analytics'
     
 
 

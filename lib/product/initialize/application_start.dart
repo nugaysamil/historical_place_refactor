@@ -15,7 +15,7 @@ final class ApplicationStart {
     WidgetsFlutterBinding.ensureInitialized();
     // Project Firebase initialization
     await Firebase.initializeApp(
-      name: firebaseName,
+
       options: DefaultFirebaseOptions.currentPlatform,
     );
 

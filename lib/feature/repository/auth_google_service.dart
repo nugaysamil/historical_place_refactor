@@ -5,7 +5,6 @@ class AuthService {
   Future<UserCredential?> signInWithGoogle() async {
     try {
       final googleUser = await GoogleSignIn().signIn();
-      print('SELAMUN ALEYKUM BEN GELDİM ' + googleUser.toString());
 
       if (googleUser != null) {
         print('googleUser: $googleUser');

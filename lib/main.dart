@@ -7,6 +7,7 @@ import 'product/initialize/app_theme.dart';
 import 'product/initialize/application_start.dart';
 
 Future<void> main() async {
+  
   await ApplicationStart.init();
   runApp(
     ProviderScope(
@@ -27,6 +28,7 @@ class MyApp extends StatelessWidget {
         locale: context.locale,
         debugShowCheckedModeBanner: false,
         theme: AppTheme.getAppTheme(context),
-        home: AuthChecker()); 
+      home: AuthChecker(),
+    ); 
   }
 }

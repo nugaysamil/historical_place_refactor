@@ -167,7 +167,6 @@ class _SideMenuState extends State<SideMenu> {
                         padding: const EdgeInsets.only(left: 15),
                         child: InkWell(
                           onTap: () {
-                            // Aynı işlevi gerçekleştir
                             showDialog(
                               context: context,
                               barrierDismissible: false,
@@ -237,7 +236,7 @@ class _SideMenuState extends State<SideMenu> {
     );
   }
 
-  void signOut() async {
+  Future<void> signOut() async {
     await FirebaseAuth.instance.signOut();
   }
 }

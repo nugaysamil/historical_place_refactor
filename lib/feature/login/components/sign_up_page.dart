@@ -80,7 +80,6 @@ class _LoginContentState extends ConsumerState<LoginContent>
             final userCredential = await AuthService().signInWithGoogle();
 
             if (userCredential != null) {
-              print('AAAAAA' + userCredential.user!.displayName!);
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => ProfileEdit()),

@@ -31,7 +31,7 @@ dependencies:
   easy_logger: ^0.0.2
   json_serializable: ^6.7.1
   shared_preferences: ^2.0.8
-
+  firebase_core: ^2.24.2
 
 dependency_overrides:
   test_api:
@@ -41,7 +41,6 @@ dev_dependencies:
     sdk: flutter
 
   flutter_launcher_icons: "^0.13.1"
-  firebase_core: ^2.24.0
   firebase_auth: ^4.15.0
   custom_info_window: ^1.0.1
   link_text: ^0.2.0
@@ -50,7 +49,7 @@ dev_dependencies:
   rive: ^0.11.3
   google_sign_in: ^6.1.6
   firebase_storage: ^11.5.3
-  cloud_firestore: ^4.13.3
+  cloud_firestore: ^4.13.6
   flutter_google_places: ^0.3.0
 
 

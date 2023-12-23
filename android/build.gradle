@@ -1,3 +1,5 @@
+
+
 allprojects {
     repositories {
         google()
@@ -17,7 +19,6 @@ tasks.register("clean", Delete) {
     delete rootProject.buildDir
 }
 
-
 /* buildscript {
     ext.kotlin_version = '1.9.21'
     repositories {
@@ -30,6 +31,9 @@ tasks.register("clean", Delete) {
 
     dependencies {
         classpath 'com.android.tools.build:gradle:7.2.0'
+        // START: FlutterFire Configuration
+        classpath 'com.google.gms:google-services:4.3.10'
+        // END: FlutterFire Configuration
         
         // START: FlutterFire Configuration
         // END: FlutterFire Configuration

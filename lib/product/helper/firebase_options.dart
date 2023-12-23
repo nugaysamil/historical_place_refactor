@@ -66,8 +66,9 @@ class DefaultFirebaseOptions {
     messagingSenderId: '205275922876',
     projectId: 'newhistorical-b4f75',
     storageBucket: 'newhistorical-b4f75.appspot.com',
+    androidClientId: '205275922876-1u5tiqtfdgj7nvotjh03483ebqc4k8l3.apps.googleusercontent.com',
     iosClientId: '205275922876-8qmrctl7okavfhpham2i7cp80110mh11.apps.googleusercontent.com',
-    iosBundleId: 'com.samil_nugay.mapsuygulama',
+    iosBundleId: 'com.example.mapsuygulama',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
@@ -76,7 +77,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '205275922876',
     projectId: 'newhistorical-b4f75',
     storageBucket: 'newhistorical-b4f75.appspot.com',
+    androidClientId: '205275922876-1u5tiqtfdgj7nvotjh03483ebqc4k8l3.apps.googleusercontent.com',
     iosClientId: '205275922876-8qmrctl7okavfhpham2i7cp80110mh11.apps.googleusercontent.com',
-    iosBundleId: 'com.samil_nugay.mapsuygulama',
+    iosBundleId: 'com.example.mapsuygulama',
   );
 }
