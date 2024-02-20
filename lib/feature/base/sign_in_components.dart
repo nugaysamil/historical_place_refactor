@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:mapsuygulama/feature/login/components/sign_up_components.dart';
 import 'package:mapsuygulama/feature/login/components/sign_up_page.dart';
-import 'package:mapsuygulama/feature/login/mixin/login_screen_page.dart';
 import 'dart:math' as math;
 
-import 'package:mapsuygulama/feature/login/widgets/center_widget.dart/center_widget.dart';
+import 'package:mapsuygulama/feature/login/widgets/center_widget/center_widget.dart';
 
 class LoginInComponent extends StatefulWidget {
   const LoginInComponent({super.key});
@@ -65,7 +63,7 @@ class _SignUpComponentsState extends State<LoginInComponent> {
             child: bottomWidget(screenSize.width),
           ),
           CenterWidget(size: screenSize),
-          const LoginContent(),
+          const SignInPage(),
         ],
       ),
     );

@@ -8,6 +8,8 @@ import 'package:mapsuygulama/feature/side/side_menu_widget.dart';
 import 'package:mapsuygulama/product/data_provider/auth_provider.dart';
 import 'package:mapsuygulama/product/utils/const/string_const.dart';
 
+part 'custom_widget_mixin.dart';
+
 class CustomMarkerInfoWindow extends ConsumerStatefulWidget {
   const CustomMarkerInfoWindow({
     Key? key,
@@ -18,12 +20,8 @@ class CustomMarkerInfoWindow extends ConsumerStatefulWidget {
 }
 
 class _CustomConsumerWidgetState extends ConsumerState<CustomMarkerInfoWindow>
-    with SingleTickerProviderStateMixin {
-  bool isSideMenuClosed = true;
-  late AnimationController _animationController;
-  late Animation<double> animation;
-  late Animation<double> scaleAnimation;
-
+    with SingleTickerProviderStateMixin, CustomWidgetMixin {
+  
   @override
   void initState() {
     _animationController = AnimationController(
@@ -38,12 +36,6 @@ class _CustomConsumerWidgetState extends ConsumerState<CustomMarkerInfoWindow>
     scaleAnimation = Tween<double>(begin: 1, end: 0.8).animate(CurvedAnimation(
         parent: _animationController, curve: Curves.fastOutSlowIn));
     super.initState();
-  }
-
-  @override
-  void dispose() {
-    _animationController.dispose();
-    super.dispose();
   }
 
   @override
@@ -83,16 +75,7 @@ class _CustomConsumerWidgetState extends ConsumerState<CustomMarkerInfoWindow>
                       top: calculateVerticalShift(context, 0.007)),
                   child: FloatingActionButton(
                     backgroundColor: Colors.white,
-                    onPressed: () {
-                      if (isSideMenuClosed) {
-                        _animationController.forward();
-                      } else {
-                        _animationController.reverse();
-                      }
-                      setState(() {
-                        isSideMenuClosed = !isSideMenuClosed;
-                      });
-                    },
+                    onPressed: () => sideMenuCloseOrOpen(),
                     child: SizedBox(
                       width: 20,
                       height: 20,
@@ -111,8 +94,5 @@ class _CustomConsumerWidgetState extends ConsumerState<CustomMarkerInfoWindow>
       ),
     );
   }
-
-  double calculateVerticalShift(BuildContext context, double percentage) {
-    return MediaQuery.of(context).size.height * percentage;
-  }
+ 
 }

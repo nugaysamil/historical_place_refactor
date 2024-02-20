@@ -68,7 +68,7 @@ class DefaultFirebaseOptions {
     storageBucket: 'newhistorical-b4f75.appspot.com',
     androidClientId: '205275922876-1u5tiqtfdgj7nvotjh03483ebqc4k8l3.apps.googleusercontent.com',
     iosClientId: '205275922876-8qmrctl7okavfhpham2i7cp80110mh11.apps.googleusercontent.com',
-    iosBundleId: 'com.example.mapsuygulama',
+    iosBundleId: 'com.samil_nugayy.mapsuygulama',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
@@ -79,6 +79,6 @@ class DefaultFirebaseOptions {
     storageBucket: 'newhistorical-b4f75.appspot.com',
     androidClientId: '205275922876-1u5tiqtfdgj7nvotjh03483ebqc4k8l3.apps.googleusercontent.com',
     iosClientId: '205275922876-8qmrctl7okavfhpham2i7cp80110mh11.apps.googleusercontent.com',
-    iosBundleId: 'com.example.mapsuygulama',
+    iosBundleId: 'com.samil_nugayy.mapsuygulama',
   );
 }

@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:mapsuygulama/feature/login/components/log_in_components.dart';
-import 'package:mapsuygulama/feature/login/components/sign_up_components.dart';
+import 'package:mapsuygulama/feature/base/sign_in_components.dart';
+import 'package:mapsuygulama/feature/base/log_in_components.dart';
 import 'package:mapsuygulama/feature/login/mixin/login_screen_page.dart';
 import 'package:mapsuygulama/product/controller/localizations_checker.dart';
-import 'package:mapsuygulama/feature/login/components/google_maps_widget.dart';
 import 'package:mapsuygulama/feature/slack/component/onboard_content.dart';
 import 'package:mapsuygulama/product/models/onboard_model.dart';
 
@@ -14,10 +13,10 @@ import 'package:easy_localization/easy_localization.dart';
   const OnBoardingScreen({Key? key}) : super(key: key);
 
   @override
-  State<OnBoardingScreen> createState() => _OnBordingScreenState();
+  State<OnBoardingScreen> createState() => _OnBoardingScreenState();
 }
 
-class _OnBordingScreenState extends State<OnBoardingScreen> {
+class _OnBoardingScreenState extends State<OnBoardingScreen> {
   late PageController _pageController;
 
   int _pageIndex = 0;
@@ -60,7 +59,7 @@ class _OnBordingScreenState extends State<OnBoardingScreen> {
                           child: OnBoardContent(
                             imageUrl: data[index].image,
                             title: data[index].title.tr(),
-                            descripton: data[index].description.tr(),
+                            description: data[index].description.tr(),
                           ),
                         ),
                         if (_pageIndex == 0)

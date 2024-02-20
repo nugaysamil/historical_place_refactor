@@ -6,7 +6,7 @@ import 'package:flutter/widgets.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ionicons/ionicons.dart';
-import 'package:mapsuygulama/feature/login/components/sign_up_components.dart';
+import 'package:mapsuygulama/feature/base/log_in_components.dart';
 import 'package:mapsuygulama/feature/login/widgets/text_field/widget_text_field.dart';
 import 'package:mapsuygulama/feature/repository/auth_google_service.dart';
 import 'package:mapsuygulama/feature/repository/email_validator.dart';
@@ -20,14 +20,14 @@ import '../widgets/text/widget_bottom_text.dart';
 import '../widgets/text_field/widget_password_field.dart';
 import '../widgets/text/widget_top_text.dart';
 
-class LoginContent extends StatefulHookConsumerWidget {
-  const LoginContent({super.key});
+class SignInPage extends StatefulHookConsumerWidget {
+  const SignInPage({super.key});
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => _LoginContentState();
 }
 
-class _LoginContentState extends ConsumerState<LoginContent>
+class _LoginContentState extends ConsumerState<SignInPage>
     with TickerProviderStateMixin {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
@@ -213,7 +213,7 @@ class _LoginContentState extends ConsumerState<LoginContent>
           onTapCallback: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => SignUpComponents()),
+              MaterialPageRoute(builder: (context) => LogInComponents()),
             );
           },
           text: 'already_account'.tr(),

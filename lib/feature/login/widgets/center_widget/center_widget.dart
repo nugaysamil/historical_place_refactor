@@ -1,7 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:ui';
 import 'package:flutter/widgets.dart';
-import 'package:mapsuygulama/feature/login/widgets/center_widget.dart/center_widget_painter.dart';
+import 'package:mapsuygulama/feature/login/widgets/center_widget/center_widget_painter.dart';
 
 import 'center_widget_clipper.dart';
 

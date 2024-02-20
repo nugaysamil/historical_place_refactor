@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:205275922876:android:1837fae086ece207172bb9",
         "android_client_info": {
-          "package_name": "com.example.mapsuygulama"
+          "package_name": "com.samil_nugayy.mapsuygulama"
         }
       },
       "oauth_client": [
@@ -17,7 +17,7 @@
           "client_id": "205275922876-1u5tiqtfdgj7nvotjh03483ebqc4k8l3.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.mapsuygulama",
+            "package_name": "com.samil_nugayy.mapsuygulama",
             "certificate_hash": "8c9efd4b0a94e9432d4bd8720229023e47d69507"
           }
         },
@@ -25,10 +25,98 @@
           "client_id": "205275922876-d9t9m2rvn07gli0m64qhmtdvapidr5vk.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.mapsuygulama",
+            "package_name": "com.samil_nugayy.mapsuygulama",
             "certificate_hash": "8b56de0898ff0202d55cd1465a89e1130e034d2b"
           }
         },
+        {
+          "client_id": "205275922876-smknl6ebsmi14odff0noncl407b31o7u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBrhaQ1kI-LR8nDunXL3mJBL3yh9tUQNIE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "205275922876-mcp4kdkl97nrqo00eap45dpuc52uqel3.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "205275922876-31vskudo748dm0epl6r3gp8affs7ohs2.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.historicalRebuiltMain"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:205275922876:android:394203be12a6df64172bb9",
+        "android_client_info": {
+          "package_name": "com.samil_nugay.mapsuygulama"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "205275922876-221hpr3k4gmtmbuo2879d7jf3nmkjfrg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.samil_nugay.mapsuygulama",
+            "certificate_hash": "aab55e944af95002425ec5ee8e8d75a7325c6821"
+          }
+        },
+        {
+          "client_id": "205275922876-48sun7joqr9rgraq95vtlj2vu7e089t7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.samil_nugay.mapsuygulama",
+            "certificate_hash": "8b56de0898ff0202d55cd1465a89e1130e034d2b"
+          }
+        },
+        {
+          "client_id": "205275922876-smknl6ebsmi14odff0noncl407b31o7u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBrhaQ1kI-LR8nDunXL3mJBL3yh9tUQNIE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "205275922876-mcp4kdkl97nrqo00eap45dpuc52uqel3.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "205275922876-31vskudo748dm0epl6r3gp8affs7ohs2.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.historicalRebuiltMain"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:205275922876:android:bef0fdbad8a97abe172bb9",
+        "android_client_info": {
+          "package_name": "com.samil_nugayy.mapsuygulama"
+        }
+      },
+      "oauth_client": [
         {
           "client_id": "205275922876-smknl6ebsmi14odff0noncl407b31o7u.apps.googleusercontent.com",
           "client_type": 3

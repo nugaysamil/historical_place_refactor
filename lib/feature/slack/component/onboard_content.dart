@@ -6,12 +6,12 @@ class OnBoardContent extends StatelessWidget {
     super.key,
     required this.imageUrl,
     required this.title,
-    required this.descripton,
+    required this.description,
   });
 
   final String imageUrl;
   final String title;
-  final String descripton;
+  final String description;
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +35,7 @@ class OnBoardContent extends StatelessWidget {
         ),
         SizedBox(height: 16),
         Text(
-          descripton,
+          description,
           textAlign: TextAlign.center,
         ),
         Spacer()

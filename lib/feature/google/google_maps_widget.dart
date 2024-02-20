@@ -1,4 +1,4 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
+// ignore_for_file: public_member_api_docs, sort_constructors_first, unused_local_variable
 import 'dart:async';
 
 import 'package:easy_localization/easy_localization.dart';
@@ -7,7 +7,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:google_maps_webservice/places.dart';
-
 import 'package:mapsuygulama/animations/animation_widget.dart';
 import 'package:mapsuygulama/feature/google/description/description_widget.dart';
 import 'package:mapsuygulama/product/data_provider/api_provider.dart';
@@ -21,6 +20,8 @@ import 'package:mapsuygulama/product/utils/map_utility.dart';
 import 'package:mapsuygulama/product/utils/zoom_in_function.dart';
 import 'package:mapsuygulama/product/utils/zoom_utility.dart';
 
+part 'google_maps_widget_mixin.dart';
+
 class GoogleMapsWidget extends ConsumerStatefulWidget {
   const GoogleMapsWidget({
     Key? key,
@@ -30,36 +31,12 @@ class GoogleMapsWidget extends ConsumerStatefulWidget {
   _GoogleConsumerWidgetState createState() => _GoogleConsumerWidgetState();
 }
 
-class _GoogleConsumerWidgetState extends ConsumerState<GoogleMapsWidget> {
-  String mapTheme = '';
-  double zoomVal = 5.0;
-  bool showSourceField = false;
-
-  TextEditingController _destinationController = TextEditingController();
-  late GoogleMapController _mapController;
-  bool isSideMenuClosed = true;
-
-  @override
-  void initState() {
-    DefaultAssetBundle.of(context)
-        .loadString(mapThemeAubergine)
-        .then((value) => mapTheme = value);
-    super.initState();
-  }
-
-  final Completer<GoogleMapController> _controller =
-      Completer<GoogleMapController>();
-  @override
-  void dispose() {
-    _mapController.dispose();
-    _destinationController.dispose();
-    super.dispose();
-  }
+class _GoogleConsumerWidgetState extends ConsumerState<GoogleMapsWidget>
+    with GoogleMapsWidgetMixin {
 
   @override
   Widget build(BuildContext context) {
     final authState = ref.watch(authStateProvider);
-    //print(authState);
     final markerModel = ref.watch(singleUserDataProvider);
     List<MarkerModel> markers = [];
 
@@ -92,11 +69,9 @@ class _GoogleConsumerWidgetState extends ConsumerState<GoogleMapsWidget> {
                                 ? Image.network(
                                     placeUrl + myData['image'].toString())
                                 : myData['error'] != null
-                                    ? Text('Hata: ${myData['error']}')
+                                    ? Text('Error: ${myData['error']}')
                                     : Container(),
                           ),
-
-
                           SizedBox(height: 15),
                           Text(
                             markerModel.name,
@@ -132,52 +107,20 @@ class _GoogleConsumerWidgetState extends ConsumerState<GoogleMapsWidget> {
         },
       );
     }
-
-    double calculateVerticalShift(BuildContext context, double percentage) {
-      return MediaQuery.of(context).size.height * percentage;
-    }
-    double screenWidth = MediaQuery.of(context).size.width;
-
     return Stack(
       children: [
         markerModel.when(
           data: (data) {
-            markers =
+            final markers =
                 data.map((json) => MarkerModel.fromMap(json.toMap())).toList();
 
             Set<Marker> markerSet = markers.map(markerModelToMarker).toSet();
-            print(markers.length);
 
             return GoogleMap(
-        
               zoomControlsEnabled: false,
               myLocationButtonEnabled: false,
               myLocationEnabled: true,
-              onMapCreated: (controller) async {
-                setState(() {});
-
-                controller.setMapStyle(mapTheme);
-                _mapController = controller;
-                _controller.complete(controller);
-
-                try {
-                  final currentPosition =
-                      await LocationService.getCurrentLocation();
-                  controller.animateCamera(
-                    CameraUpdate.newCameraPosition(
-                      CameraPosition(
-                        target: LatLng(
-                          currentPosition.latitude,
-                          currentPosition.longitude,
-                        ),
-                        zoom: 15,
-                      ),
-                    ),
-                  );
-                } catch (e) {
-                  print('Error getting current location: $e');
-                }
-              },
+              onMapCreated: (controller) => onMapCreated(controller),
               markers: markerSet,
               initialCameraPosition: const CameraPosition(
                 target: LatLng(38.9573415, 35.240741),
@@ -186,18 +129,12 @@ class _GoogleConsumerWidgetState extends ConsumerState<GoogleMapsWidget> {
             );
           },
           error: (error, stackTrace) {
-            print('Error: $error');
-            print('StackTrace: $stackTrace');
-
             return Center(child: Text('Error: $error'));
           },
           loading: () {
-            print('Loading...');
-
             return Center(child: CircularProgressIndicator());
           },
         ),
-        
         SafeArea(
           child: Row(
             mainAxisAlignment: authState.asData?.value == null
@@ -225,19 +162,7 @@ class _GoogleConsumerWidgetState extends ConsumerState<GoogleMapsWidget> {
                   child: TextFormField(
                     controller: _destinationController,
                     readOnly: true,
-                    onTap: () async {
-                      final _selectedPlace = await GooglePlacesService()
-                          .showGoogleAutoComplete(context);
-                      _destinationController.text = _selectedPlace.description!;
-                      final mapUtility = MapUtility(
-                          GoogleMapsPlaces(apiKey: kGoogleApiKey),
-                          _mapController);
-                      mapUtility.goToPlace(_selectedPlace.placeId!);
-          
-                      setState(() {
-                        showSourceField = true;
-                      });
-                    },
+                    onTap: () => selectedPlace(),
                     style: GoogleFonts.poppins(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
@@ -260,7 +185,6 @@ class _GoogleConsumerWidgetState extends ConsumerState<GoogleMapsWidget> {
             ],
           ),
         ),
-        
         Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [

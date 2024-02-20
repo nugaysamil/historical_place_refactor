@@ -116,7 +116,8 @@ class _SideMenuState extends State<SideMenu> {
                       StateMachineController controller =
                           RiveUtils.getRiveController(artboard,
                               stateMachineName:
-                                  menu.stateMachineName); // bakcaz
+                                  menu.stateMachineName,
+                      );
 
                       menu.input = controller.findSMI('active') as SMIBool;
                     },
