@@ -64,7 +64,7 @@ class _SignUpComponentsState extends State<LogInComponents> {
             child: bottomWidget(screenSize.width),
           ),
           CenterWidget(size: screenSize),
-          const LoginInpPage(),
+          const LogInPage(),
         ],
       ),
     );

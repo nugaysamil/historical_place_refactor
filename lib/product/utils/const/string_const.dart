@@ -20,3 +20,5 @@ const iconUrl =
 const profile = 'Profile';
 const rivIconsAssetDir = 'assets/RiveAssets/icons2.riv';
 const artBoard = 'New Artboard';
+const networkImage =
+    'https://e7.pngegg.com/pngimages/382/874/png-clipart-user-profile-computer-icons-female-person-office-lady-purple-business-woman.png';

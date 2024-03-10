@@ -2,7 +2,7 @@
 
 part of 'login_screen_page.dart';
 
-mixin LoginScreenMixin on State<LoginInpPage> {
+mixin LoginScreenMixin on State<LogInPage> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 

@@ -20,14 +20,14 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 part 'login_screen_mixin.dart';
 
-class LoginInpPage extends StatefulHookConsumerWidget {
-  const LoginInpPage({super.key});
+class LogInPage extends StatefulHookConsumerWidget {
+  const LogInPage({super.key});
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => _LoginContentState();
 }
 
-class _LoginContentState extends ConsumerState<LoginInpPage>
+class _LoginContentState extends ConsumerState<LogInPage>
     with LoginScreenMixin {
   
 

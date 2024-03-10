@@ -1,6 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:mapsuygulama/product/utils/const/string_const.dart';
 
 class AboutMeWidget extends StatelessWidget {
   const AboutMeWidget({super.key});

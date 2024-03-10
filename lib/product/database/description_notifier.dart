@@ -69,7 +69,6 @@ class FavoritesStateNotifier extends StateNotifier<List<Favorite>> {
         });
       }
 
-      print('Yazıldı');
     } else {
       Fluttertoast.showToast(
         msg: "required_login".tr(),

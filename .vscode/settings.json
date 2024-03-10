@@ -1,5 +1,13 @@
 {
   "cmake.sourceDirectory": "/Users/samilnugay/Downloads/historical-place-refactor/linux",
-  "cSpell.words": ["Artboard", "Firestore", "mapsuygulama", "Navs", "vsync"],
+  "cSpell.words": [
+    "Artboard",
+    "Firestore",
+    "Giriniz",
+    "mapsuygulama",
+    "Navs",
+    "unfocus",
+    "vsync"
+  ],
   "java.configuration.updateBuildConfiguration": "disabled"
 }

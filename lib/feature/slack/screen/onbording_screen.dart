@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mapsuygulama/feature/base/sign_in_components.dart';
-import 'package:mapsuygulama/feature/base/log_in_components.dart';
-import 'package:mapsuygulama/feature/login/mixin/login_screen_page.dart';
+import 'package:mapsuygulama/feature/slack/screen/onboarding_screen_mixin.dart';
+
 import 'package:mapsuygulama/product/controller/localizations_checker.dart';
 import 'package:mapsuygulama/feature/slack/component/onboard_content.dart';
 import 'package:mapsuygulama/product/models/onboard_model.dart';
@@ -16,23 +16,8 @@ import 'package:easy_localization/easy_localization.dart';
   State<OnBoardingScreen> createState() => _OnBoardingScreenState();
 }
 
-class _OnBoardingScreenState extends State<OnBoardingScreen> {
-  late PageController _pageController;
+class _OnBoardingScreenState extends State<OnBoardingScreen> with OnBoardingScreenMixin {
 
-  int _pageIndex = 0;
-  bool _isLoading = false;
-
-  @override
-  void initState() {
-    _pageController = PageController(initialPage: 0);
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    _pageController.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,10 +31,10 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
               Expanded(
                 child: PageView.builder(
                   itemCount: data.length,
-                  controller: _pageController,
+                  controller: pageController,
                   onPageChanged: (value) {
                     setState(() {
-                      _pageIndex = value;
+                      pageIndex = value;
                     });
                   },
                   itemBuilder: (context, index) {
@@ -62,7 +47,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                             description: data[index].description.tr(),
                           ),
                         ),
-                        if (_pageIndex == 0)
+                        if (pageIndex == 0)
                           Padding(
                             padding: const EdgeInsets.only(bottom: 50.0),
                             child: Row(
@@ -111,7 +96,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                               ],
                             ),
                           ),
-                        if (_pageIndex == 0)
+                        if (pageIndex == 0)
                           Row(
                             children: [
                               ...List.generate(
@@ -119,7 +104,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                                 (index) => Padding(
                                   padding: EdgeInsets.only(right: 10),
                                   child:
-                                      Indicator(isActive: index == _pageIndex),
+                                      Indicator(isActive: index == pageIndex),
                                 ),
                               ),
                               Spacer(),
@@ -128,7 +113,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                                 width: 60,
                                 child: ElevatedButton(
                                   onPressed: () {
-                                    _pageController.nextPage(
+                                    pageController.nextPage(
                                       curve: Curves.ease,
                                       duration: Duration(milliseconds: 500),
                                     );
@@ -148,7 +133,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                               ),
                             ],
                           ),
-                        if (_pageIndex != 0)
+                        if (pageIndex != 0)
                           Row(
                             children: [
                               ...List.generate(
@@ -156,7 +141,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                                 (index) => Padding(
                                   padding: EdgeInsets.only(right: 10),
                                   child:
-                                      Indicator(isActive: index == _pageIndex),
+                                      Indicator(isActive: index == pageIndex),
                                 ),
                               ),
                               Spacer(),
@@ -181,13 +166,13 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
       width: 60,
       child: ElevatedButton(
         onPressed: () {
-          if (_isLoading) {
+          if (isLoading) {
             return;
           }
 
-          if (_pageIndex == data.length - 1) {
+          if (pageIndex == data.length - 1) {
             setState(() {
-              _isLoading = true;
+              isLoading = true;
             });
 
             Future.delayed(Duration(seconds: 2), () {
@@ -198,12 +183,12 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                 ),
               ).then((_) {
                 setState(() {
-                  _isLoading = false;
+                  isLoading = false;
                 });
               });
             });
           } else {
-            _pageController.nextPage(
+            pageController.nextPage(
               curve: Curves.ease,
               duration: Duration(milliseconds: 300),
             );
@@ -216,12 +201,12 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
         child: Stack(
           alignment: Alignment.center,
           children: [
-            if (!_isLoading)
+            if (!isLoading)
               Icon(
                 Icons.arrow_forward,
                 color: Colors.white,
               ),
-            if (_isLoading)
+            if (isLoading)
               SizedBox(
                 height: 24,
                 width: 24,

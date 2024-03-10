@@ -6,6 +6,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:mapsuygulama/product/database/database_service.dart';
 import 'package:mapsuygulama/product/database/user_data_service.dart';
 import 'package:mapsuygulama/feature/google/custom_widget.dart';
+import 'package:mapsuygulama/product/utils/const/string_const.dart';
+
+part 'profile_update_widget.mixin.dart';
 
 class ProfileEditUpdate extends StatefulWidget {
   const ProfileEditUpdate({Key? key}) : super(key: key);
@@ -14,40 +17,9 @@ class ProfileEditUpdate extends StatefulWidget {
   State<ProfileEditUpdate> createState() => _ProfileEditState();
 }
 
-class _ProfileEditState extends State<ProfileEditUpdate> {
-  bool isObscurePassword = true;
-  final TextEditingController _nameController = TextEditingController();
-  final TextEditingController _locationController = TextEditingController();
-  final TextEditingController _ageController = TextEditingController();
-  final bool isPasswordTextField = false;
-
-  String? imageUrl;
-
-  @override
-  void initState() {
-    super.initState();
-    readUserData();
-  }
-
-  Future<void> readUserData() async {
-    User? user = FirebaseAuth.instance.currentUser;
-    if (user != null) {
-      final snapshot = await FirebaseFirestore.instance
-          .collection('users')
-          .doc(user.uid)
-          .get();
-      if (snapshot.exists) {
-        final userData = snapshot.data()!;
-        setState(() {
-          _nameController.text = userData['name'] ?? '';
-          _locationController.text = userData['location'] ?? '';
-          _ageController.text = userData['age'] ?? '';
-          imageUrl = userData['imageUrl'];
-        });
-      }
-    }
-  }
-
+class _ProfileEditState extends State<ProfileEditUpdate>
+    with ProfileEditUpdateMixin {
+      
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -104,7 +76,7 @@ class _ProfileEditState extends State<ProfileEditUpdate> {
                           image: imageUrl != null
                               ? NetworkImage(imageUrl!)
                               : NetworkImage(
-                                  'https://e7.pngegg.com/pngimages/382/874/png-clipart-user-profile-computer-icons-female-person-office-lady-purple-business-woman.png',
+                                  networkImage
                                 ),
                         ),
                       ),
@@ -128,18 +100,7 @@ class _ProfileEditState extends State<ProfileEditUpdate> {
                             Icons.add_a_photo,
                           ),
                           color: Colors.white,
-                          onPressed: () async {
-                            XFile? file = await getImage();
-                            if (file != null) {
-                              final imageUrl =
-                                  await DatabaseServices.uploadImage(file);
-                              setState(
-                                () {
-                                  this.imageUrl = imageUrl;
-                                },
-                              );
-                            }
-                          },
+                          onPressed: () => getImageUtils(),
                         ),
                       ),
                     ),
@@ -175,33 +136,7 @@ class _ProfileEditState extends State<ProfileEditUpdate> {
                     ),
                   ),
                   ElevatedButton(
-                    onPressed: () {
-                      FirebaseService.saveUserData(
-                        _nameController.text,
-                        _ageController.text,
-                        _locationController.text,
-                        imageUrl!,
-                      ).then((value) {
-                        // Show success message
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text("data_saved_success".tr()),
-                            duration: Duration(seconds: 2),
-                          ),
-                        );
-
-                        // Delay and then navigate to the next screen
-                        Future.delayed(
-                          Duration(seconds: 2),
-                          () => Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => CustomMarkerInfoWindow(),
-                            ),
-                          ),
-                        );
-                      });
-                    },
+                    onPressed: () => saveUserDataController(),
                     child: Text(
                       'SAVE2'.tr(),
                       style: TextStyle(
@@ -267,11 +202,5 @@ class _ProfileEditState extends State<ProfileEditUpdate> {
     );
   }
 
-  Future<XFile?> getImage() async {
-    final picker = ImagePicker();
-
-    return await picker.pickImage(
-      source: ImageSource.gallery,
-    );
-  }
+  
 }
