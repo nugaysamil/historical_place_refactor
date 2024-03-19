@@ -35,8 +35,8 @@ class MenuButton extends StatelessWidget {
             ],
           ),
           child: RiveAnimation.asset(
-            riveAssets,
-            artboard: artBoardSettings,
+            StringConstants.riveAssets,
+            artboard: StringConstants.artBoardSettings,
             onInit: riveOnInit,
           ),
         ),

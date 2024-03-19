@@ -22,7 +22,7 @@ mixin LoginScreenMixin on State<LogInPage> {
           await loginController.userLogin(email, password);
 
           Fluttertoast.showToast(
-            msg: msgLogInSucces,
+            msg: StringConstants.msgLogInSucces,
             toastLength: Toast.LENGTH_SHORT,
           );
 

@@ -15,6 +15,7 @@ import 'package:mapsuygulama/feature/login/controller/login_controller.dart';
 import 'package:mapsuygulama/feature/login/controller/login_state.dart';
 import 'package:mapsuygulama/feature/google/custom_widget.dart';
 import 'package:mapsuygulama/feature/login/widgets/or_divider.dart';
+import 'package:mapsuygulama/product/generation/assets.gen.dart';
 import 'package:mapsuygulama/product/utils/const/color_const.dart';
 import '../widgets/text/widget_bottom_text.dart';
 import '../widgets/text_field/widget_password_field.dart';
@@ -88,7 +89,7 @@ class _LoginContentState extends ConsumerState<SignInPage>
               print('errrrrrror');
             }
           },
-          child: Image.asset('assets/images/google.png'),
+          child: Image.asset(Assets.images.google.path),
         ),
       ],
     );

@@ -39,7 +39,7 @@ class _LoginContentState extends ConsumerState<LogInPage>
           top: 136,
           left: 24,
           child: TopText(
-            topText: welcomeBack.tr(),
+            topText: StringConstants.welcomeBack.tr(),
           ),
         ),
         Padding(
@@ -52,12 +52,12 @@ class _LoginContentState extends ConsumerState<LogInPage>
                 children: [
                   InputTextField(
                       textController: _emailController,
-                      hint: email,
+                      hint: StringConstants.email.tr(),
                     iconData: Ionicons.mail_outline,
                   ),
                   PasswordInputField(
                       textController: _passwordController,
-                      hint: password.tr(),
+                      hint:  StringConstants.password.tr(),
                     iconData: Ionicons.lock_closed_outline,
                   ),
                   Padding(
@@ -103,7 +103,7 @@ class _LoginContentState extends ConsumerState<LogInPage>
       child: TextButton(
         onPressed: () {},
         child: Text(
-          forgotPasswordText.tr(),
+          StringConstants.forgotPasswordText.tr(),
           style: TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.w600,
@@ -127,7 +127,7 @@ class _LoginContentState extends ConsumerState<LogInPage>
             );
           },
           text2: "log_in".tr(),
-          text: dontAccount.tr(),
+          text: StringConstants.dontAccount.tr(),
         ),
       ),
     );

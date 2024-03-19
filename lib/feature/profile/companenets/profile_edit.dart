@@ -58,7 +58,7 @@ class _ProfileEditState extends State<ProfileEdit> {
                           image: imageUrl != null
                               ? NetworkImage(imageUrl!)
                               : NetworkImage(
-                                  iconUrl,
+                                  StringConstants.iconUrl,
                                 ),
                         ),
                       ),
@@ -248,7 +248,7 @@ class _ProfileEditState extends State<ProfileEdit> {
         onPressed: () {},
       ),
       title: Text(
-        profile,
+        StringConstants.profile,
         style: TextStyle(color: Colors.black),
       ),
     );

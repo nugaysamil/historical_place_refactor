@@ -67,7 +67,7 @@ class _GoogleConsumerWidgetState extends ConsumerState<GoogleMapsWidget>
                             child: myData['image'] != null &&
                                     myData['image'].toString().isNotEmpty
                                 ? Image.network(
-                                    placeUrl + myData['image'].toString())
+                                    StringConstants.placeUrl + myData['image'].toString())
                                 : myData['error'] != null
                                     ? Text('Error: ${myData['error']}')
                                     : Container(),
@@ -90,7 +90,7 @@ class _GoogleConsumerWidgetState extends ConsumerState<GoogleMapsWidget>
                                   builder: (context) => DescriptionDetails(
                                     markerList: markerModel.name,
                                     data: myData,
-                                    placeUrl: placeUrl,
+                                    placeUrl: StringConstants.placeUrl,
                                   ),
                                 ),
                               );

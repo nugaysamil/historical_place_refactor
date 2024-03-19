@@ -17,7 +17,7 @@ mixin GoogleMapsWidgetMixin on State<GoogleMapsWidget> {
   @override
   void initState() {
     DefaultAssetBundle.of(context)
-        .loadString(mapThemeAubergine)
+        .loadString(StringConstants.mapThemeAubergine)
         .then((value) => mapTheme = value);
     super.initState();
 
@@ -38,7 +38,7 @@ mixin GoogleMapsWidgetMixin on State<GoogleMapsWidget> {
         await GooglePlacesService().showGoogleAutoComplete(context);
     _destinationController.text = _selectedPlace.description!;
     final mapUtility =
-        MapUtility(GoogleMapsPlaces(apiKey: kGoogleApiKey), _mapController);
+        MapUtility(GoogleMapsPlaces(apiKey: StringConstants.kGoogleApiKey), _mapController);
     mapUtility.goToPlace(_selectedPlace.placeId!);
 
     setState(() {

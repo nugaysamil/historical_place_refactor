@@ -14,7 +14,7 @@ class GooglePlacesService {
       language: "en",
       context: context,
       mode: Mode.overlay,
-      apiKey: kGoogleApiKey,
+      apiKey: StringConstants.kGoogleApiKey,
       components: [Component(Component.country, "tr")],
       types: ["(cities)"],
       hint: "Search City",

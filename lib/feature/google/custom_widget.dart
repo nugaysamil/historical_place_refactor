@@ -80,8 +80,8 @@ class _CustomConsumerWidgetState extends ConsumerState<CustomMarkerInfoWindow>
                       width: 20,
                       height: 20,
                       child: RiveAnimation.asset(
-                        rivIconsAssetDir,
-                        artboard: artBoard,
+                        StringConstants.rivIconsAssetDir,
+                        artboard: StringConstants.artBoard,
                         onInit: (riveOnInit) {},
                       ),
                     ),

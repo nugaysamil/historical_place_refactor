@@ -76,7 +76,7 @@ class _ProfileEditState extends State<ProfileEditUpdate>
                           image: imageUrl != null
                               ? NetworkImage(imageUrl!)
                               : NetworkImage(
-                                  networkImage
+                                  StringConstants.networkImage
                                 ),
                         ),
                       ),

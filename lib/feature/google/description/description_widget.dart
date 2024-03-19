@@ -2,6 +2,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:mapsuygulama/product/generation/assets.gen.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../side/favorite_widget.dart';
@@ -148,7 +149,7 @@ class DescriptionDetails extends ConsumerWidget {
                     launch(data['tripadvisor'].toString());
                   },
                   child: Image.asset(
-                    'assets/images/tripadvisor.jpg',
+                    Assets.images.tripadvisor.path,
                   ),
                 ),
               ),
