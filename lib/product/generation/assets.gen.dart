@@ -9,6 +9,25 @@
 
 import 'package:flutter/widgets.dart';
 
+class $AssetsRiveAssetsGen {
+  const $AssetsRiveAssetsGen();
+
+  /// File path: assets/RiveAssets/icons.riv
+  String get icons => 'assets/RiveAssets/icons.riv';
+
+  /// File path: assets/RiveAssets/icons2.riv
+  String get icons2 => 'assets/RiveAssets/icons2.riv';
+
+  /// File path: assets/RiveAssets/menu.riv
+  String get menu => 'assets/RiveAssets/menu.riv';
+
+  /// File path: assets/RiveAssets/menuitems.riv
+  String get menuitems => 'assets/RiveAssets/menuitems.riv';
+
+  /// List of all assets
+  List<String> get values => [icons, icons2, menu, menuitems];
+}
+
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
@@ -51,25 +70,6 @@ class $AssetsMapthemeGen {
   List<String> get values => [aubergineTheme, darkTheme];
 }
 
-class $AssetsRiveassetsGen {
-  const $AssetsRiveassetsGen();
-
-  /// File path: assets/riveassets/icons.riv
-  String get icons => 'assets/riveassets/icons.riv';
-
-  /// File path: assets/riveassets/icons2.riv
-  String get icons2 => 'assets/riveassets/icons2.riv';
-
-  /// File path: assets/riveassets/menu.riv
-  String get menu => 'assets/riveassets/menu.riv';
-
-  /// File path: assets/riveassets/menuitems.riv
-  String get menuitems => 'assets/riveassets/menuitems.riv';
-
-  /// List of all assets
-  List<String> get values => [icons, icons2, menu, menuitems];
-}
-
 class $AssetsTranslationsGen {
   const $AssetsTranslationsGen();
 
@@ -86,9 +86,9 @@ class $AssetsTranslationsGen {
 class Assets {
   Assets._();
 
+  static const $AssetsRiveAssetsGen riveAssets = $AssetsRiveAssetsGen();
   static const $AssetsImagesGen images = $AssetsImagesGen();
   static const $AssetsMapthemeGen maptheme = $AssetsMapthemeGen();
-  static const $AssetsRiveassetsGen riveassets = $AssetsRiveassetsGen();
   static const $AssetsTranslationsGen translations = $AssetsTranslationsGen();
 }
 

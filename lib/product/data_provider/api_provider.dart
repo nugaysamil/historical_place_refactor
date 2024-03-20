@@ -1,7 +1,7 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+/* import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mapsuygulama/product/service/fetch_api.dart';
 
-import '../models/api_model.dart';
+import '../models/marker_model.dart';
 
 final markerProvider = Provider<ApiService?>((ref) => ApiService());
 
@@ -11,3 +11,4 @@ final singleUserDataProvider =
   ref.keepAlive();
   return ApiService!.getMarkerList();
 });
+ */

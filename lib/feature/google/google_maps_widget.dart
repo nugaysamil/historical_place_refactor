@@ -9,11 +9,10 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:google_maps_webservice/places.dart';
 import 'package:mapsuygulama/animations/animation_widget.dart';
 import 'package:mapsuygulama/feature/google/description/description_widget.dart';
-import 'package:mapsuygulama/product/data_provider/api_provider.dart';
+import 'package:mapsuygulama/feature/google/view_model/google_maps_view_model.dart';
 import 'package:mapsuygulama/product/data_provider/auth_provider.dart';
 import 'package:mapsuygulama/product/helper/location_service.dart';
-import 'package:mapsuygulama/product/models/api_model.dart';
-import 'package:mapsuygulama/product/service/fetch_api.dart';
+import 'package:mapsuygulama/product/models/marker_model.dart';
 import 'package:mapsuygulama/product/service/google_places_service.dart';
 import 'package:mapsuygulama/product/utils/const/string_const.dart';
 import 'package:mapsuygulama/product/utils/map_utility.dart';
@@ -33,20 +32,18 @@ class GoogleMapsWidget extends ConsumerStatefulWidget {
 
 class _GoogleConsumerWidgetState extends ConsumerState<GoogleMapsWidget>
     with GoogleMapsWidgetMixin {
-
   @override
   Widget build(BuildContext context) {
     final authState = ref.watch(authStateProvider);
-    final markerModel = ref.watch(singleUserDataProvider);
-    List<MarkerModel> markers = [];
-
+    final markerModel = ref.watch(markersProvider);
+  
     Marker markerModelToMarker(MarkerModel markerModel) {
       return Marker(
         markerId: MarkerId(markerModel.id.toString()),
-        position: LatLng(markerModel.latitude, markerModel.longitude),
+        position: LatLng(markerModel.latitude!, markerModel.longitude!),
         onTap: () async {
-          var myData = await ApiService().getRuins(markerModel.slug);
-
+          final ruinsModel =
+              await ref.read(ruinDetailsProvider(markerModel.slug!).future);
           await showDialog(
             context: context,
             builder: (BuildContext context) {
@@ -64,17 +61,21 @@ class _GoogleConsumerWidgetState extends ConsumerState<GoogleMapsWidget>
                           SizedBox(
                             height: 200,
                             width: 200,
-                            child: myData['image'] != null &&
-                                    myData['image'].toString().isNotEmpty
+                            child: ruinsModel.image != null
                                 ? Image.network(
-                                    StringConstants.placeUrl + myData['image'].toString())
-                                : myData['error'] != null
-                                    ? Text('Error: ${myData['error']}')
-                                    : Container(),
+                                    StringConstants.placeUrl +
+                                    '${ruinsModel.image}')
+                                : Container(
+                                    color: Colors.grey,
+                                    child: Center(
+                                      child: Text('No image available'),
+                                    ),
+                                  ),
                           ),
+
                           SizedBox(height: 15),
                           Text(
-                            markerModel.name,
+                            markerModel.name!,
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 20,
@@ -88,9 +89,8 @@ class _GoogleConsumerWidgetState extends ConsumerState<GoogleMapsWidget>
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) => DescriptionDetails(
-                                    markerList: markerModel.name,
-                                    data: myData,
-                                    placeUrl: StringConstants.placeUrl,
+                                    markerData: markerModel,
+                                    ruinsData: ruinsModel,
                                   ),
                                 ),
                               );
@@ -107,14 +107,13 @@ class _GoogleConsumerWidgetState extends ConsumerState<GoogleMapsWidget>
         },
       );
     }
+
     return Stack(
       children: [
+        
         markerModel.when(
           data: (data) {
-            final markers =
-                data.map((json) => MarkerModel.fromMap(json.toMap())).toList();
-
-            Set<Marker> markerSet = markers.map(markerModelToMarker).toSet();
+            final markerSet = data.map((e) => markerModelToMarker(e)).toSet();
 
             return GoogleMap(
               zoomControlsEnabled: false,

@@ -2,36 +2,41 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:mapsuygulama/product/generation/assets.gen.dart';
+import 'package:mapsuygulama/product/utils/const/string_const.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+import 'package:mapsuygulama/product/generation/assets.gen.dart';
+import 'package:mapsuygulama/product/models/marker_model.dart';
+import 'package:mapsuygulama/product/models/ruins_model.dart';
 
 import '../../side/favorite_widget.dart';
 
 class DescriptionDetails extends ConsumerWidget {
-  final dynamic data;
-  final String placeUrl;
-  final String markerList;
+  final RuinsModel ruinsData;
+  final MarkerModel markerData;
 
   const DescriptionDetails({
     Key? key,
-    required this.data,
-    required this.placeUrl,
-    required this.markerList,
+    required this.ruinsData,
+    required this.markerData,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final favorites = ref.watch(favoritesProvider);
+    final markerLatitude = markerData.latitude;
+    final markerLongitude = markerData.longitude;
 
-    bool isPressed = favorites.any((favorite) =>
-        favorite.name == markerList &&
+    bool isPressed = favorites.any((favorite) {
+      return false;
+    }
+        /*   favorite.name == markerList &&
         favorite.image == data['image'] &&
-        favorite.information == data['information']);
+          favorite.information == data['information'], */
+        );
 
-    final latitude = data['latitude'];
-    final longitude = data['longitude'];
     final url =
-        'https://www.google.com/maps/search/?api=1&query=$latitude,$longitude';
+        'https://www.google.com/maps/search/?api=1&query=$markerLatitude,$markerLongitude';
 
     return WillPopScope(
       onWillPop: () async {
@@ -52,7 +57,7 @@ class DescriptionDetails extends ConsumerWidget {
           centerTitle: true,
           backgroundColor: Colors.black,
           title: Text(
-            markerList,
+            markerData.name ?? '',
             style: TextStyle(
               color: Colors.white,
               fontSize: 20,
@@ -60,7 +65,7 @@ class DescriptionDetails extends ConsumerWidget {
             ),
           ),
           actions: [
-            Padding(
+            /* Padding(
               padding: const EdgeInsets.only(right: 10),
               child: IconButton(
                 color: Colors.white,
@@ -92,18 +97,21 @@ class DescriptionDetails extends ConsumerWidget {
                   color: isPressed ? Colors.yellow : null,
                 ),
               ),
-            ),
+            ), */
           ],
         ),
         body: SingleChildScrollView(
           child: Column(
             children: [
               Container(
-                child: data['image'] == ""
-                    ? Container()
-                    : Image.network(
-                        placeUrl + data['image'],
-                        fit: BoxFit.fitHeight,
+                child: ruinsData.image != null
+                    ? Image.network(
+                        StringConstants.placeUrl + '${ruinsData.image}')
+                    : Container(
+                        color: Colors.grey,
+                        child: Center(
+                          child: Text('No image available'),
+                        ),
                       ),
               ),
               SizedBox(height: 15),
@@ -111,14 +119,15 @@ class DescriptionDetails extends ConsumerWidget {
                 padding: const EdgeInsets.only(left: 30, right: 30),
                 child: Container(
                   child: Text(
-                    data['information'] != null
-                        ? data['information'].toString()
+                    ruinsData.information != null
+                        ? ruinsData.information.toString()
                         : 'source'.tr(),
+                   
                     textAlign: TextAlign.justify,
                     style: TextStyle(wordSpacing: 2.0),
                   ),
                 ),
-              ),
+              ), 
               Container(
                 width: 130,
                 height: 100,
@@ -129,10 +138,10 @@ class DescriptionDetails extends ConsumerWidget {
                     shadowColor: Colors.transparent,
                   ),
                   onPressed: () {
-                    launch(data['foursquare'].toString());
+                    launch(ruinsData.foursquare!);
                   },
                   child: Image.asset(
-                    'assets/images/foursquare.png',
+                    Assets.images.foursquare.path,
                   ),
                 ),
               ),
@@ -146,7 +155,7 @@ class DescriptionDetails extends ConsumerWidget {
                     shadowColor: Colors.transparent,
                   ),
                   onPressed: () {
-                    launch(data['tripadvisor'].toString());
+                      launch(ruinsData.tripadvisor!);
                   },
                   child: Image.asset(
                     Assets.images.tripadvisor.path,
@@ -159,7 +168,7 @@ class DescriptionDetails extends ConsumerWidget {
                 style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
               ),
               SizedBox(height: 18),
-              GestureDetector(
+              /* GestureDetector(
                 onTap: () {
                   if (data['turkish_links'] != null) {
                     final turkishLinks = data['turkish_links'];
@@ -183,12 +192,12 @@ class DescriptionDetails extends ConsumerWidget {
                     color: Colors.blue,
                   ),
                 ),
-              ),
+              ), */
               SizedBox(height: 15),
               Text("language_resource_en".tr(),
                   style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),
               SizedBox(height: 18),
-              GestureDetector(
+              /*  GestureDetector(
                 onTap: () {
                   if (data['english_links'] != null) {
                     final englishLinks = data['english_links'];
@@ -210,9 +219,9 @@ class DescriptionDetails extends ConsumerWidget {
                     color: Colors.blue,
                   ),
                 ),
-              ),
+              ), */
               SizedBox(height: 10),
-              if (data['english_links'].length > 1)
+              /*  if (data['english_links'].length > 1)
                 GestureDetector(
                   onTap: () {
                     launch(data['english_links'][1]['url']);
@@ -224,9 +233,9 @@ class DescriptionDetails extends ConsumerWidget {
                       color: Colors.blue,
                     ),
                   ),
-                ),
+                ), */
               SizedBox(height: 10),
-              if (data['english_links'].length > 2)
+              /*   if (data['english_links'].length > 2)
                 GestureDetector(
                   onTap: () {
                     launch(data['english_links'][2]['url']);
@@ -238,7 +247,7 @@ class DescriptionDetails extends ConsumerWidget {
                       color: Colors.blue,
                     ),
                   ),
-                ),
+                ), */
               Container(
                 margin: EdgeInsets.only(bottom: 50),
                 child: ElevatedButton(
@@ -253,15 +262,10 @@ class DescriptionDetails extends ConsumerWidget {
                   child: Text("open_google_maps".tr()),
                 ),
               ),
-             
             ],
-            
           ),
-          
         ),
-        
       ),
-      
     );
   }
 }

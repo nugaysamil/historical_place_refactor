@@ -1,7 +1,7 @@
-import 'dart:convert';
+/* import 'dart:convert';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../models/api_model.dart';
+import '../models/marker_model.dart';
 import 'package:dio/dio.dart';
 import 'package:http/http.dart' as http;
 
@@ -45,3 +45,4 @@ class ApiService {
 }
 
 final providerFetchData = Provider<ApiService>((ref) => ApiService());
+ */
