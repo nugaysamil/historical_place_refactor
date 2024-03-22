@@ -1,6 +1,6 @@
-// ignore_for_file: invalid_use_of_visible_for_testing_member, unused_local_variable
+// ignore_for_file: invalid_use_of_visible_for_testing_member, unused_local_variable, deprecated_member_use
 
-part of 'login_screen_page.dart';
+part of 'login_screen.dart';
 
 mixin LoginScreenMixin on State<LogInPage> {
   final TextEditingController _emailController = TextEditingController();

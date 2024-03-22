@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mapsuygulama/feature/login/components/sign_up_page.dart';
+import 'package:mapsuygulama/feature/login/components/signin_screen.dart';
 import 'dart:math' as math;
 
 import 'package:mapsuygulama/feature/login/widgets/center_widget/center_widget.dart';

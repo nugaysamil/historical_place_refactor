@@ -8,7 +8,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:google_maps_webservice/places.dart';
 import 'package:mapsuygulama/animations/animation_widget.dart';
-import 'package:mapsuygulama/feature/google/description/description_widget.dart';
+import 'package:mapsuygulama/feature/google/description/description_details_screen.dart';
 import 'package:mapsuygulama/feature/google/view_model/google_maps_view_model.dart';
 import 'package:mapsuygulama/product/data_provider/auth_provider.dart';
 import 'package:mapsuygulama/product/helper/location_service.dart';

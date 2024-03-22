@@ -25,13 +25,12 @@ class DescriptionDetails extends ConsumerWidget with DescriptionDetailsMixin {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-   
     final favorites = ref.watch(favoritesProvider);
     final markerLatitude = markerData.latitude;
     final markerLongitude = markerData.longitude;
     final isPressed = isFavoritePressed(favorites, markerData, ruinsData);
-    final url = '${StringConstants.googleMapsSearchUrl}$markerLatitude,$markerLongitude';
-
+    final url =
+        '${StringConstants.googleMapsSearchUrl}$markerLatitude,$markerLongitude';
 
     return WillPopScope(
       onWillPop: () async {
@@ -65,7 +64,7 @@ class DescriptionDetails extends ConsumerWidget with DescriptionDetailsMixin {
               child: IconButton(
                 color: Colors.white,
                 iconSize: 40,
-                onPressed: () async { 
+                onPressed: () async {
                   await handleFavoriteButtonPress(
                     ref,
                     isPressed,
@@ -78,7 +77,7 @@ class DescriptionDetails extends ConsumerWidget with DescriptionDetailsMixin {
                   color: isPressed ? Colors.yellow : null,
                 ),
               ),
-            ), 
+            ),
           ],
         ),
         body: SingleChildScrollView(
@@ -145,12 +144,14 @@ class DescriptionDetails extends ConsumerWidget with DescriptionDetailsMixin {
               SizedBox(height: 15),
               Text(
                 "language_resource_tr".tr(),
-                style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
               SizedBox(height: 18),
               GestureDetector(
                 onTap: () {
-
                   if (ruinsData.turkishLinks != null &&
                       ruinsData.turkishLinks!.isNotEmpty &&
                       ruinsData.turkishLinks![0].url != null) {
@@ -169,9 +170,20 @@ class DescriptionDetails extends ConsumerWidget with DescriptionDetailsMixin {
                   ),
                 ),
               ),
+              SizedBox(height: 18),
+              if (ruinsData.turkishLinks!.length > 1)
+                LinkText(
+                  text: ruinsData.turkishLinks![1].description,
+                  url: ruinsData.turkishLinks![1].url,
+                ),
               SizedBox(height: 15),
-              Text("language_resource_en".tr(),
-                  style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),
+              Text(
+                "language_resource_en".tr(),
+                style: TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
               SizedBox(height: 18),
               Column(
                 children: [
@@ -187,10 +199,6 @@ class DescriptionDetails extends ConsumerWidget with DescriptionDetailsMixin {
                         ? ruinsData.turkishLinks![0].url
                         : null,
                   ),
-                  SizedBox(height: 15),
-                  Text("language_resource_en".tr(),
-                      style:
-                          TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),
                   SizedBox(height: 18),
                   LinkText(
                     text: ruinsData.englishLinks != null &&
