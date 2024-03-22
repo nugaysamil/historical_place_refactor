@@ -2,6 +2,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:mapsuygulama/feature/google/description/description_details_mixin.dart';
+import 'package:mapsuygulama/feature/google/description/link_text.dart';
 import 'package:mapsuygulama/product/utils/const/string_const.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -11,7 +13,7 @@ import 'package:mapsuygulama/product/models/ruins_model.dart';
 
 import '../../side/favorite_widget.dart';
 
-class DescriptionDetails extends ConsumerWidget {
+class DescriptionDetails extends ConsumerWidget with DescriptionDetailsMixin {
   final RuinsModel ruinsData;
   final MarkerModel markerData;
 
@@ -23,20 +25,13 @@ class DescriptionDetails extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+   
     final favorites = ref.watch(favoritesProvider);
     final markerLatitude = markerData.latitude;
     final markerLongitude = markerData.longitude;
+    final isPressed = isFavoritePressed(favorites, markerData, ruinsData);
+    final url = '${StringConstants.googleMapsSearchUrl}$markerLatitude,$markerLongitude';
 
-    bool isPressed = favorites.any((favorite) {
-      return false;
-    }
-        /*   favorite.name == markerList &&
-        favorite.image == data['image'] &&
-          favorite.information == data['information'], */
-        );
-
-    final url =
-        'https://www.google.com/maps/search/?api=1&query=$markerLatitude,$markerLongitude';
 
     return WillPopScope(
       onWillPop: () async {
@@ -65,39 +60,25 @@ class DescriptionDetails extends ConsumerWidget {
             ),
           ),
           actions: [
-            /* Padding(
+            Padding(
               padding: const EdgeInsets.only(right: 10),
               child: IconButton(
                 color: Colors.white,
                 iconSize: 40,
-                onPressed: () async {
-                  final favoritesNotifier =
-                      ref.read(favoritesProvider.notifier);
-
-                  if (isPressed) {
-                    final dataToRemove = {
-                      'name': markerList,
-                      'image': data['image'],
-                      'information': data['information'],
-                    };
-                    await favoritesNotifier.deleteFromFirestore(dataToRemove);
-                  } else {
-                    await favoritesNotifier.readFromFirestore();
-                    final newData = {
-                      'name': markerList,
-                      'image': data['image'],
-                      'information': data['information'],
-                    };
-                    await favoritesNotifier.writeToFirestore(
-                        markerList, newData);
-                  }
+                onPressed: () async { 
+                  await handleFavoriteButtonPress(
+                    ref,
+                    isPressed,
+                    markerData,
+                    ruinsData,
+                  );
                 },
                 icon: Icon(
                   Icons.star,
                   color: isPressed ? Colors.yellow : null,
                 ),
               ),
-            ), */
+            ), 
           ],
         ),
         body: SingleChildScrollView(
@@ -122,12 +103,11 @@ class DescriptionDetails extends ConsumerWidget {
                     ruinsData.information != null
                         ? ruinsData.information.toString()
                         : 'source'.tr(),
-                   
                     textAlign: TextAlign.justify,
                     style: TextStyle(wordSpacing: 2.0),
                   ),
                 ),
-              ), 
+              ),
               Container(
                 width: 130,
                 height: 100,
@@ -155,7 +135,7 @@ class DescriptionDetails extends ConsumerWidget {
                     shadowColor: Colors.transparent,
                   ),
                   onPressed: () {
-                      launch(ruinsData.tripadvisor!);
+                    launch(ruinsData.tripadvisor!);
                   },
                   child: Image.asset(
                     Assets.images.tripadvisor.path,
@@ -168,86 +148,71 @@ class DescriptionDetails extends ConsumerWidget {
                 style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
               ),
               SizedBox(height: 18),
-              /* GestureDetector(
+              GestureDetector(
                 onTap: () {
-                  if (data['turkish_links'] != null) {
-                    final turkishLinks = data['turkish_links'];
-                    if (turkishLinks.isNotEmpty) {
-                      final link = turkishLinks[0];
-                      if (link['description'] != null && link['url'] != null) {
-                        launch(link['url']);
-                      }
-                    }
+
+                  if (ruinsData.turkishLinks != null &&
+                      ruinsData.turkishLinks!.isNotEmpty &&
+                      ruinsData.turkishLinks![0].url != null) {
+                    launch(ruinsData.turkishLinks![0].url!);
                   }
                 },
                 child: Text(
-                  data['turkish_links'] != null &&
-                          data['turkish_links'].isNotEmpty
-                      ? data['turkish_links'][0]['description'].isEmpty
-                          ? ''
-                          : data['turkish_links'][0]['description']
+                  ruinsData.turkishLinks != null &&
+                          ruinsData.turkishLinks!.isNotEmpty &&
+                          ruinsData.turkishLinks![0].description != null
+                      ? ruinsData.turkishLinks![0].description!
                       : 'Boş',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     color: Colors.blue,
                   ),
                 ),
-              ), */
+              ),
               SizedBox(height: 15),
               Text("language_resource_en".tr(),
                   style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),
               SizedBox(height: 18),
-              /*  GestureDetector(
-                onTap: () {
-                  if (data['english_links'] != null) {
-                    final englishLinks = data['english_links'];
-                    if (englishLinks.isNotEmpty) {
-                      final link = englishLinks[0];
-                      if (link['description'] != null && link['url'] != null) {
-                        launch(link['url']);
-                      }
-                    }
-                  }
-                },
-                child: Text(
-                  data['english_links'] != null &&
-                          data['english_links'].isNotEmpty
-                      ? data['english_links'][0]['description'] ?? 'Boş'
-                      : '',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Colors.blue,
+              Column(
+                children: [
+                  LinkText(
+                    text: ruinsData.turkishLinks != null &&
+                            ruinsData.turkishLinks!.isNotEmpty &&
+                            ruinsData.turkishLinks![0].description != null
+                        ? ruinsData.turkishLinks![0].description
+                        : null,
+                    url: ruinsData.turkishLinks != null &&
+                            ruinsData.turkishLinks!.isNotEmpty &&
+                            ruinsData.turkishLinks![0].url != null
+                        ? ruinsData.turkishLinks![0].url
+                        : null,
                   ),
-                ),
-              ), */
-              SizedBox(height: 10),
-              /*  if (data['english_links'].length > 1)
-                GestureDetector(
-                  onTap: () {
-                    launch(data['english_links'][1]['url']);
-                  },
-                  child: Text(
-                    data['english_links'][1]['description'],
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.blue,
+                  SizedBox(height: 15),
+                  Text("language_resource_en".tr(),
+                      style:
+                          TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),
+                  SizedBox(height: 18),
+                  LinkText(
+                    text: ruinsData.englishLinks != null &&
+                            ruinsData.englishLinks!.isNotEmpty &&
+                            ruinsData.englishLinks![0].description != null
+                        ? ruinsData.englishLinks![0].description
+                        : null,
+                    url: ruinsData.englishLinks != null &&
+                            ruinsData.englishLinks!.isNotEmpty &&
+                            ruinsData.englishLinks![0].url != null
+                        ? ruinsData.englishLinks![0].url
+                        : null,
+                  ),
+                  SizedBox(height: 10),
+                  if (ruinsData.englishLinks!.length > 1)
+                    LinkText(
+                      text: ruinsData.englishLinks![1].description,
+                      url: ruinsData.englishLinks![1].url,
                     ),
-                  ),
-                ), */
+                ],
+              ),
               SizedBox(height: 10),
-              /*   if (data['english_links'].length > 2)
-                GestureDetector(
-                  onTap: () {
-                    launch(data['english_links'][2]['url']);
-                  },
-                  child: Text(
-                    data['english_links'][2]['description'],
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.blue,
-                    ),
-                  ),
-                ), */
               Container(
                 margin: EdgeInsets.only(bottom: 50),
                 child: ElevatedButton(

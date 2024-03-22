@@ -47,7 +47,7 @@ mixin GoogleMapsWidgetMixin on State<GoogleMapsWidget> {
   }
 
   Future<void> onMapCreated(GoogleMapController controller) async {
-    setState(() {});
+    setState(() {}); 
 
     controller.setMapStyle(mapTheme);
     _mapController = controller;

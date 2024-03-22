@@ -23,4 +23,6 @@ class StringConstants {
   static const String artBoard = 'New Artboard';
   static const String networkImage =
       'https://e7.pngegg.com/pngimages/382/874/png-clipart-user-profile-computer-icons-female-person-office-lady-purple-business-woman.png';
+  static const String googleMapsSearchUrl =
+      'https://www.google.com/maps/search/?api=1&query=';
 }
