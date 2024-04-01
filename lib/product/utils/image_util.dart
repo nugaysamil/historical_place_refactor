@@ -1,15 +1,16 @@
 import 'package:image_picker/image_picker.dart';
 
-Future<XFile?> getImage() async {
-  final picker = ImagePicker();
+final class ImageSelector {
+  final ImagePicker _picker = ImagePicker();
 
-  try {
-    return await picker.pickImage(
-      source: ImageSource.gallery,
-    );
-  } catch (e) {
-    print('Error selecting image: $e');
-
-    return null;
+  Future<XFile?> getImage() async {
+    try {
+      return await _picker.pickImage(
+        source: ImageSource.gallery,
+      );
+    } catch (e) {
+      print('Error selecting image: $e');
+      return null;
+    }
   }
 }

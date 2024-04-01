@@ -8,7 +8,7 @@ class AppTheme {
       useMaterial3: false,
       scaffoldBackgroundColor: Colors.white,
       textTheme: Theme.of(context).textTheme.apply(
-            bodyColor: kPrimaryColor,
+            bodyColor: ProjectColors().kPrimaryColor,
             fontFamily: 'Poppins',
             displayColor: Colors.transparent,
           ),

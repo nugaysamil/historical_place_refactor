@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:mapsuygulama/feature/google/custom_widget.dart';
-import 'package:mapsuygulama/feature/google/google_maps_widget.dart';
-import 'package:mapsuygulama/feature/login/controller/auth_checker.dart';
-import 'package:mapsuygulama/feature/slack/screen/onbording_screen.dart';
+import 'package:mapsuygulama/feature/view/google/custom_widget.dart';
+import 'package:mapsuygulama/feature/view/google/google_maps_widget.dart';
+import 'package:mapsuygulama/feature/controller/login_auth_checker.dart';
+import 'package:mapsuygulama/feature/view/welcome/screen/onbording_screen.dart';
 import 'package:mapsuygulama/product/initialize/product_localization.dart';
 import 'product/initialize/app_theme.dart';
 import 'product/initialize/application_start.dart';
